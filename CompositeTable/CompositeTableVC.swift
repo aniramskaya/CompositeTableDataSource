@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  CompositeTableVC.swift
 //  CompositeTable
 //
 //  Created by Марина Чемезова on 05.02.2023.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class CompositeTableVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
