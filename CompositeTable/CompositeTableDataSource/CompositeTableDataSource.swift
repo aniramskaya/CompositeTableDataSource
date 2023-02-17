@@ -1,75 +1,11 @@
 //
-//  TableSectionDataSource.swift
+//  CompositeTableDataSource.swift
 //  CompositeTable
 //
-//  Created by Марина Чемезова on 15.02.2023.
+//  Created by Марина Чемезова on 17.02.2023.
 //
 
 import UIKit
-
-struct TableItem: Identifiable {
-    let id: String
-    let cellReuseIdentifier: String
-}
-
-class TableSectionView {
-    var id: String = ""
-    var isDisplaying: Bool = true
-    var items: [TableItem] = []
-    var headerView: UIView?
-    var footerView: UIView?
-
-    var onNeedsDisplay: (() -> Void)?
-    
-    init(id: String) {
-        self.id = id
-    }
-
-    func display(with items: [TableItem]) {
-        isDisplaying = true
-        self.items = items
-        onNeedsDisplay?()
-    }
-    
-    func hide() {
-        isDisplaying = false
-        onNeedsDisplay?()
-    }
-}
-
-protocol TableViewCellProvider: AnyObject {
-    // MARK: - Behaviour
-    func configure(cell: UITableViewCell, for item: TableItem, at index: UInt)
-    func willDisplay(cell: UITableViewCell, item: TableItem, at index: UInt)
-    func didEndDiplaying(cell: UITableViewCell, item: TableItem, at index: UInt)
-}
-
-extension TableViewCellProvider {
-    // MARK: - Behaviour
-    func willDisplay(cell: UITableViewCell, item: TableItem, at index: UInt) {}
-    func didEndDiplaying(cell: UITableViewCell, item: TableItem, at index: UInt) {}
-}
-
-protocol TableViewSectionProvider: TableViewCellProvider {
-    var view: TableSectionView { get set }
-    
-    func registerCells(for tableView: UITableView)
-    
-    // MARK: - Lifecycle events
-    
-    func viewWillAppear()
-    func viewWillDisappear()
-
-    // MARK: - Cells
-
-    func configure(cell: UITableViewCell, for item: TableItem, at index: UInt)
-}
-
-extension TableViewSectionProvider {
-    // MARK: - Lifecycle events
-    func viewWillAppear() {}
-    func viewWillDisappear() {}
-}
 
 class CompositeTableDataSource: NSObject {
     private struct TableSectionData {
