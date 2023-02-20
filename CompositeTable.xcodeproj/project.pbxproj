@@ -118,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				CC7C20B4299F2BC100C5CF07 /* CompositeTableDataSource */,
+				CC63AD2229A38F8700FDB198 /* Samples */,
 				CC17CDB8298FEB230066A7C8 /* AppDelegate.swift */,
 				CC17CDBA298FEB230066A7C8 /* SceneDelegate.swift */,
 				CC17CDBC298FEB230066A7C8 /* CompositeTableVC.swift */,
@@ -125,11 +126,6 @@
 				CC17CDC1298FEB240066A7C8 /* Assets.xcassets */,
 				CC17CDC3298FEB240066A7C8 /* LaunchScreen.storyboard */,
 				CC17CDC6298FEB240066A7C8 /* Info.plist */,
-				CC7C20A7299CE39A00C5CF07 /* RandomNumberSectionProvider.swift */,
-				CC7C20A9299CE40C00C5CF07 /* SimpleTableCell.swift */,
-				CC7C20AB299CE43700C5CF07 /* SimpleTableCell.xib */,
-				CC7C20B0299E0AAF00C5CF07 /* RandomNumberSectionHeader.swift */,
-				CC7C20B2299E4E0E00C5CF07 /* ShoppingSearchVC.swift */,
 			);
 			path = CompositeTable;
 			sourceTree = "<group>";
@@ -149,6 +145,26 @@
 				CC17CDDB298FEB240066A7C8 /* CompositeTableUITestsLaunchTests.swift */,
 			);
 			path = CompositeTableUITests;
+			sourceTree = "<group>";
+		};
+		CC63AD2229A38F8700FDB198 /* Samples */ = {
+			isa = PBXGroup;
+			children = (
+				CC63AD2329A38FA100FDB198 /* RandomNumber */,
+				CC7C20B2299E4E0E00C5CF07 /* ShoppingSearchVC.swift */,
+			);
+			path = Samples;
+			sourceTree = "<group>";
+		};
+		CC63AD2329A38FA100FDB198 /* RandomNumber */ = {
+			isa = PBXGroup;
+			children = (
+				CC7C20A7299CE39A00C5CF07 /* RandomNumberSectionProvider.swift */,
+				CC7C20A9299CE40C00C5CF07 /* SimpleTableCell.swift */,
+				CC7C20AB299CE43700C5CF07 /* SimpleTableCell.xib */,
+				CC7C20B0299E0AAF00C5CF07 /* RandomNumberSectionHeader.swift */,
+			);
+			path = RandomNumber;
 			sourceTree = "<group>";
 		};
 		CC7C20B4299F2BC100C5CF07 /* CompositeTableDataSource */ = {
