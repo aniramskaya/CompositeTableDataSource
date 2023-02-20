@@ -37,10 +37,12 @@
             </objects>
             <point key="canvasLocation" x="-1493" y="153"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Item-->
         <scene sceneID="54c-4M-pcc">
             <objects>
                 <navigationController id="qbr-4J-OOF" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" image="cart" catalog="system" id="mLc-au-LPF"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="peT-eq-jgM">
                         <rect key="frame" x="0.0" y="59" width="393" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -55,6 +57,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="cart" catalog="system" width="128" height="102"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

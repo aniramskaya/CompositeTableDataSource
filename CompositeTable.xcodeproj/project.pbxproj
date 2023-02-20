@@ -10,12 +10,16 @@
 		CC17CDB9298FEB230066A7C8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC17CDB8298FEB230066A7C8 /* AppDelegate.swift */; };
 		CC17CDBB298FEB230066A7C8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC17CDBA298FEB230066A7C8 /* SceneDelegate.swift */; };
 		CC17CDBD298FEB230066A7C8 /* CompositeTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC17CDBC298FEB230066A7C8 /* CompositeTableVC.swift */; };
-		CC17CDC0298FEB230066A7C8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC17CDBE298FEB230066A7C8 /* Main.storyboard */; };
+		CC17CDC0298FEB230066A7C8 /* CompositeTableVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC17CDBE298FEB230066A7C8 /* CompositeTableVC.storyboard */; };
 		CC17CDC2298FEB240066A7C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC17CDC1298FEB240066A7C8 /* Assets.xcassets */; };
 		CC17CDC5298FEB240066A7C8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC17CDC3298FEB240066A7C8 /* LaunchScreen.storyboard */; };
 		CC17CDD0298FEB240066A7C8 /* CompositeTableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC17CDCF298FEB240066A7C8 /* CompositeTableTests.swift */; };
 		CC17CDDA298FEB240066A7C8 /* CompositeTableUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC17CDD9298FEB240066A7C8 /* CompositeTableUITests.swift */; };
 		CC17CDDC298FEB240066A7C8 /* CompositeTableUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC17CDDB298FEB240066A7C8 /* CompositeTableUITestsLaunchTests.swift */; };
+		CC63AD2629A38FE200FDB198 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC63AD2529A38FE200FDB198 /* GalleryViewController.swift */; };
+		CC63AD2829A3907000FDB198 /* GalleryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC63AD2729A3907000FDB198 /* GalleryCell.xib */; };
+		CC63AD2A29A390B900FDB198 /* GalleryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC63AD2929A390B900FDB198 /* GalleryViewController.xib */; };
+		CC63AD2C29A392B900FDB198 /* Tabs.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC63AD2B29A392B900FDB198 /* Tabs.storyboard */; };
 		CC7C20A6299C976D00C5CF07 /* TableViewSectionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C20A5299C976D00C5CF07 /* TableViewSectionProvider.swift */; };
 		CC7C20A8299CE39A00C5CF07 /* RandomNumberSectionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C20A7299CE39A00C5CF07 /* RandomNumberSectionProvider.swift */; };
 		CC7C20AA299CE40C00C5CF07 /* SimpleTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C20A9299CE40C00C5CF07 /* SimpleTableCell.swift */; };
@@ -49,7 +53,7 @@
 		CC17CDB8298FEB230066A7C8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CC17CDBA298FEB230066A7C8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		CC17CDBC298FEB230066A7C8 /* CompositeTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositeTableVC.swift; sourceTree = "<group>"; };
-		CC17CDBF298FEB230066A7C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		CC17CDBF298FEB230066A7C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/CompositeTableVC.storyboard; sourceTree = "<group>"; };
 		CC17CDC1298FEB240066A7C8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CC17CDC4298FEB240066A7C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CC17CDC6298FEB240066A7C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -58,6 +62,10 @@
 		CC17CDD5298FEB240066A7C8 /* CompositeTableUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CompositeTableUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC17CDD9298FEB240066A7C8 /* CompositeTableUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositeTableUITests.swift; sourceTree = "<group>"; };
 		CC17CDDB298FEB240066A7C8 /* CompositeTableUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositeTableUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		CC63AD2529A38FE200FDB198 /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
+		CC63AD2729A3907000FDB198 /* GalleryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GalleryCell.xib; sourceTree = "<group>"; };
+		CC63AD2929A390B900FDB198 /* GalleryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GalleryViewController.xib; sourceTree = "<group>"; };
+		CC63AD2B29A392B900FDB198 /* Tabs.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tabs.storyboard; sourceTree = "<group>"; };
 		CC7C20A5299C976D00C5CF07 /* TableViewSectionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewSectionProvider.swift; sourceTree = "<group>"; };
 		CC7C20A7299CE39A00C5CF07 /* RandomNumberSectionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNumberSectionProvider.swift; sourceTree = "<group>"; };
 		CC7C20A9299CE40C00C5CF07 /* SimpleTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTableCell.swift; sourceTree = "<group>"; };
@@ -122,10 +130,11 @@
 				CC17CDB8298FEB230066A7C8 /* AppDelegate.swift */,
 				CC17CDBA298FEB230066A7C8 /* SceneDelegate.swift */,
 				CC17CDBC298FEB230066A7C8 /* CompositeTableVC.swift */,
-				CC17CDBE298FEB230066A7C8 /* Main.storyboard */,
+				CC17CDBE298FEB230066A7C8 /* CompositeTableVC.storyboard */,
 				CC17CDC1298FEB240066A7C8 /* Assets.xcassets */,
 				CC17CDC3298FEB240066A7C8 /* LaunchScreen.storyboard */,
 				CC17CDC6298FEB240066A7C8 /* Info.plist */,
+				CC63AD2B29A392B900FDB198 /* Tabs.storyboard */,
 			);
 			path = CompositeTable;
 			sourceTree = "<group>";
@@ -150,6 +159,7 @@
 		CC63AD2229A38F8700FDB198 /* Samples */ = {
 			isa = PBXGroup;
 			children = (
+				CC63AD2429A38FCB00FDB198 /* Gallery */,
 				CC63AD2329A38FA100FDB198 /* RandomNumber */,
 				CC7C20B2299E4E0E00C5CF07 /* ShoppingSearchVC.swift */,
 			);
@@ -165,6 +175,16 @@
 				CC7C20B0299E0AAF00C5CF07 /* RandomNumberSectionHeader.swift */,
 			);
 			path = RandomNumber;
+			sourceTree = "<group>";
+		};
+		CC63AD2429A38FCB00FDB198 /* Gallery */ = {
+			isa = PBXGroup;
+			children = (
+				CC63AD2529A38FE200FDB198 /* GalleryViewController.swift */,
+				CC63AD2729A3907000FDB198 /* GalleryCell.xib */,
+				CC63AD2929A390B900FDB198 /* GalleryViewController.xib */,
+			);
+			path = Gallery;
 			sourceTree = "<group>";
 		};
 		CC7C20B4299F2BC100C5CF07 /* CompositeTableDataSource */ = {
@@ -282,10 +302,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC63AD2829A3907000FDB198 /* GalleryCell.xib in Resources */,
+				CC63AD2A29A390B900FDB198 /* GalleryViewController.xib in Resources */,
+				CC63AD2C29A392B900FDB198 /* Tabs.storyboard in Resources */,
 				CC17CDC5298FEB240066A7C8 /* LaunchScreen.storyboard in Resources */,
 				CC17CDC2298FEB240066A7C8 /* Assets.xcassets in Resources */,
 				CC7C20AC299CE43700C5CF07 /* SimpleTableCell.xib in Resources */,
-				CC17CDC0298FEB230066A7C8 /* Main.storyboard in Resources */,
+				CC17CDC0298FEB230066A7C8 /* CompositeTableVC.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -317,6 +340,7 @@
 				CC17CDBD298FEB230066A7C8 /* CompositeTableVC.swift in Sources */,
 				CC17CDB9298FEB230066A7C8 /* AppDelegate.swift in Sources */,
 				CC7C20A8299CE39A00C5CF07 /* RandomNumberSectionProvider.swift in Sources */,
+				CC63AD2629A38FE200FDB198 /* GalleryViewController.swift in Sources */,
 				CC7C20AA299CE40C00C5CF07 /* SimpleTableCell.swift in Sources */,
 				CC7C20B1299E0AAF00C5CF07 /* RandomNumberSectionHeader.swift in Sources */,
 				CC7C20B6299F2C0200C5CF07 /* TableItem.swift in Sources */,
@@ -357,12 +381,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		CC17CDBE298FEB230066A7C8 /* Main.storyboard */ = {
+		CC17CDBE298FEB230066A7C8 /* CompositeTableVC.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				CC17CDBF298FEB230066A7C8 /* Base */,
 			);
-			name = Main.storyboard;
+			name = CompositeTableVC.storyboard;
 			sourceTree = "<group>";
 		};
 		CC17CDC3298FEB240066A7C8 /* LaunchScreen.storyboard */ = {
@@ -502,7 +526,7 @@
 				INFOPLIST_FILE = CompositeTable/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = CompositeTableVC;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -531,7 +555,7 @@
 				INFOPLIST_FILE = CompositeTable/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = CompositeTableVC;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
