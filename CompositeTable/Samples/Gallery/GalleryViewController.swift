@@ -24,8 +24,17 @@ class GalleryViewController: UIViewController {
     
     let cellIdentifier = "GalleryCell"
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        registerCells()
+    }
+    
     private func registerCells() {
         collectionView.register(UINib(nibName: cellIdentifier, bundle: nil), forCellWithReuseIdentifier: cellIdentifier)
+    }
+    
+    static func loadFromNib() -> GalleryViewController {
+        return GalleryViewController(nibName: String(describing: Self.self), bundle: nil)
     }
 }
 

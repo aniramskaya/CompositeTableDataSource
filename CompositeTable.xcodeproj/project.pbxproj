@@ -20,6 +20,7 @@
 		CC63AD2829A3907000FDB198 /* GalleryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC63AD2729A3907000FDB198 /* GalleryCell.xib */; };
 		CC63AD2A29A390B900FDB198 /* GalleryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC63AD2929A390B900FDB198 /* GalleryViewController.xib */; };
 		CC63AD2C29A392B900FDB198 /* Tabs.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC63AD2B29A392B900FDB198 /* Tabs.storyboard */; };
+		CC63AD2F29A3965C00FDB198 /* GalleryTabVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC63AD2E29A3965C00FDB198 /* GalleryTabVC.swift */; };
 		CC7C20A6299C976D00C5CF07 /* TableViewSectionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C20A5299C976D00C5CF07 /* TableViewSectionProvider.swift */; };
 		CC7C20A8299CE39A00C5CF07 /* RandomNumberSectionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C20A7299CE39A00C5CF07 /* RandomNumberSectionProvider.swift */; };
 		CC7C20AA299CE40C00C5CF07 /* SimpleTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C20A9299CE40C00C5CF07 /* SimpleTableCell.swift */; };
@@ -66,6 +67,7 @@
 		CC63AD2729A3907000FDB198 /* GalleryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GalleryCell.xib; sourceTree = "<group>"; };
 		CC63AD2929A390B900FDB198 /* GalleryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GalleryViewController.xib; sourceTree = "<group>"; };
 		CC63AD2B29A392B900FDB198 /* Tabs.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tabs.storyboard; sourceTree = "<group>"; };
+		CC63AD2E29A3965C00FDB198 /* GalleryTabVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryTabVC.swift; sourceTree = "<group>"; };
 		CC7C20A5299C976D00C5CF07 /* TableViewSectionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewSectionProvider.swift; sourceTree = "<group>"; };
 		CC7C20A7299CE39A00C5CF07 /* RandomNumberSectionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNumberSectionProvider.swift; sourceTree = "<group>"; };
 		CC7C20A9299CE40C00C5CF07 /* SimpleTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTableCell.swift; sourceTree = "<group>"; };
@@ -160,13 +162,13 @@
 			isa = PBXGroup;
 			children = (
 				CC63AD2429A38FCB00FDB198 /* Gallery */,
-				CC63AD2329A38FA100FDB198 /* RandomNumber */,
+				CC63AD2329A38FA100FDB198 /* RandomNumberSectionProvider */,
 				CC7C20B2299E4E0E00C5CF07 /* ShoppingSearchVC.swift */,
 			);
 			path = Samples;
 			sourceTree = "<group>";
 		};
-		CC63AD2329A38FA100FDB198 /* RandomNumber */ = {
+		CC63AD2329A38FA100FDB198 /* RandomNumberSectionProvider */ = {
 			isa = PBXGroup;
 			children = (
 				CC7C20A7299CE39A00C5CF07 /* RandomNumberSectionProvider.swift */,
@@ -174,12 +176,13 @@
 				CC7C20AB299CE43700C5CF07 /* SimpleTableCell.xib */,
 				CC7C20B0299E0AAF00C5CF07 /* RandomNumberSectionHeader.swift */,
 			);
-			path = RandomNumber;
+			path = RandomNumberSectionProvider;
 			sourceTree = "<group>";
 		};
 		CC63AD2429A38FCB00FDB198 /* Gallery */ = {
 			isa = PBXGroup;
 			children = (
+				CC63AD2E29A3965C00FDB198 /* GalleryTabVC.swift */,
 				CC63AD2529A38FE200FDB198 /* GalleryViewController.swift */,
 				CC63AD2729A3907000FDB198 /* GalleryCell.xib */,
 				CC63AD2929A390B900FDB198 /* GalleryViewController.xib */,
@@ -344,6 +347,7 @@
 				CC7C20AA299CE40C00C5CF07 /* SimpleTableCell.swift in Sources */,
 				CC7C20B1299E0AAF00C5CF07 /* RandomNumberSectionHeader.swift in Sources */,
 				CC7C20B6299F2C0200C5CF07 /* TableItem.swift in Sources */,
+				CC63AD2F29A3965C00FDB198 /* GalleryTabVC.swift in Sources */,
 				CC17CDBB298FEB230066A7C8 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -526,7 +530,7 @@
 				INFOPLIST_FILE = CompositeTable/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = CompositeTableVC;
+				INFOPLIST_KEY_UIMainStoryboardFile = Tabs;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -555,7 +559,7 @@
 				INFOPLIST_FILE = CompositeTable/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = CompositeTableVC;
+				INFOPLIST_KEY_UIMainStoryboardFile = Tabs;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
