@@ -19,6 +19,13 @@ class CompositeTableVC: UITableViewController {
             RandomNumberSectionProvider(view: TableSectionView(id: "second"))
         ])
         
+        attachNavBarButtons()
+        title = "Шоппинг"
+        navigationItem.largeTitleDisplayMode = .always
+        embedSearchbar()
+    }
+    
+    private func attachNavBarButtons() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             title: "Height",
             style: .plain,
@@ -31,38 +38,15 @@ class CompositeTableVC: UITableViewController {
             target: self,
             action: #selector(refresh)
         )
-        title = "Шоппинг"
-        navigationItem.largeTitleDisplayMode = .always
-        setupSearchController()
     }
     
-    private func setupSearchController() {
-        let resultsTableController = ShoppingSearchVC(style: .plain)
-        
-        searchController = UISearchController(searchResultsController: resultsTableController)
-        //searchController?.delegate = self
-        searchController?.searchResultsUpdater = resultsTableController
-        searchController?.searchBar.autocapitalizationType = .none
-        searchController?.searchBar.delegate = self // Monitor when the search button is tapped.
-        
-        // Place the search bar in the navigation bar.
-        navigationItem.searchController = searchController
-        
-        if #available(iOS 16.0, *) {
-            navigationItem.preferredSearchBarPlacement = .stacked
-        }
-        
-        // Make the search bar always visible.
-        navigationItem.hidesSearchBarWhenScrolling = false
-        
-        /** Search presents a view controller by applying normal view controller presentation semantics.
-         This means that the presentation moves up the view controller hierarchy until it finds the root
-         view controller or one that defines a presentation context.
-         */
-        
-        /** Specify that this view controller determines how the search controller is presented.
-         The search controller should be presented modally and match the physical size of this view controller.
-         */
+    var searchbar: UISearchBar?
+    private func embedSearchbar() {
+        let searchbar = UISearchBar()
+        searchbar.placeholder = "Найти"
+        searchbar.delegate = self
+        navigationItem.titleView = searchbar
+        self.searchbar = searchbar
         definesPresentationContext = true
     }
     
@@ -84,11 +68,49 @@ class CompositeTableVC: UITableViewController {
             tableView.endUpdates()
         }
     }
+    
+    @objc func cancelSearch() {
+        searchbar?.resignFirstResponder()
+    }
+
+    
+    var searchResultsVC: ShoppingSearchVC?
+    var tableContentOffset: CGPoint = .zero
+    private func attachSearchResultsVC() {
+        tableContentOffset = tableView.contentOffset
+        let searchResultsVC = ShoppingSearchVC()
+        searchResultsVC.modalTransitionStyle = .crossDissolve
+        searchResultsVC.modalPresentationStyle = .overCurrentContext
+        present(searchResultsVC, animated: true)
+        transitionCoordinator?.animate(alongsideTransition: { context in
+            self.navigationItem.largeTitleDisplayMode = .never
+        })
+        self.searchResultsVC = searchResultsVC
+    }
+    
+    private func detachSearchResultsVC() {
+        guard let searchResultsVC else { return }
+        searchResultsVC.dismiss(animated: true)
+        self.tableView.contentOffset = self.tableContentOffset
+        transitionCoordinator?.animate(alongsideTransition: { context in
+            self.navigationItem.largeTitleDisplayMode = .always
+        })
+    }
 }
 
 
 extension CompositeTableVC: UISearchBarDelegate {
-//    func position(for bar: UIBarPositioning) -> UIBarPosition {
-//        return .topAttached
-//    }
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelSearch))
+        attachSearchResultsVC()
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        attachNavBarButtons()
+        detachSearchResultsVC()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print(searchText)
+    }
 }

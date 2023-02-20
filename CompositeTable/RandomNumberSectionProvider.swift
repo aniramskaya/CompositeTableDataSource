@@ -44,8 +44,8 @@ class RandomNumberSectionProvider: TableViewSectionProvider {
     
     private func attachHeaderView() {
         view.headerView = RandomNumberSectionHeader(title: "Section header \(view.id)")
-        view.headerView?.backgroundColor = .orange
+        view.headerView?.backgroundColor = .lightGray
         view.footerView = RandomNumberSectionHeader(title: "Section footer \(view.id)")
-        view.footerView?.backgroundColor = .blue
+        view.footerView?.backgroundColor = .gray
     }
 }

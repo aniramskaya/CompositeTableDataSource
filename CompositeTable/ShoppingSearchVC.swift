@@ -8,7 +8,7 @@
 import UIKit
 
 class ShoppingSearchVC: UITableViewController {
-    private var items = ["First", "Second", "Third"]
+    private var items = ["Search result first", "Search result second", "Search result third"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
