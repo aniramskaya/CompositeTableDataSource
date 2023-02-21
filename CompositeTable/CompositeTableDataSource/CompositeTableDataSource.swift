@@ -162,7 +162,7 @@ extension CompositeTableDataSource: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = snapshot[indexPath.section].items[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: item.cellReuseIdentifier, for: indexPath)
-        sectionProviders[indexPath.section].configure(cell: cell, for: item, at: UInt(indexPath.row))
+        sectionProviders[indexPath.section].configure(cell: cell, for: item, at: indexPath.row)
         return cell
     }
 }
@@ -186,7 +186,7 @@ extension CompositeTableDataSource: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let item = snapshot[indexPath.section].items[indexPath.row]
-        sectionProviders[indexPath.section].willDisplay(cell: cell, item: item, at: UInt(indexPath.row))
+        sectionProviders[indexPath.section].willDisplay(cell: cell, item: item, at: indexPath.row)
     }
     
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -194,6 +194,6 @@ extension CompositeTableDataSource: UITableViewDelegate {
         let section = snapshot[indexPath.section]
         guard indexPath.row < section.items.count else { return }
         let item = section.items[indexPath.row]
-        sectionProviders[indexPath.section].didEndDiplaying(cell: cell, item: item, at: UInt(indexPath.row))
+        sectionProviders[indexPath.section].didEndDiplaying(cell: cell, item: item, at: indexPath.row)
     }
 }

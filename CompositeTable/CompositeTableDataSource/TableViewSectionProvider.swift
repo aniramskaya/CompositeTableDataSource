@@ -24,12 +24,12 @@ protocol TableViewSectionProvider {
 
     // MARK: - Cells
 
-    func configure(cell: UITableViewCell, for item: TableItem, at index: UInt)
+    func configure(cell: UITableViewCell, for item: TableItem, at index: Int)
 
     // MARK: - Behaviour
 
-    func willDisplay(cell: UITableViewCell, item: TableItem, at index: UInt)
-    func didEndDiplaying(cell: UITableViewCell, item: TableItem, at index: UInt)
+    func willDisplay(cell: UITableViewCell, item: TableItem, at index: Int)
+    func didEndDiplaying(cell: UITableViewCell, item: TableItem, at index: Int)
 }
 
 extension TableViewSectionProvider {
@@ -38,8 +38,8 @@ extension TableViewSectionProvider {
     func viewWillDisappear() {}
     
     // MARK: - Behaviour
-    func willDisplay(cell: UITableViewCell, item: TableItem, at index: UInt) {}
-    func didEndDiplaying(cell: UITableViewCell, item: TableItem, at index: UInt) {}
+    func willDisplay(cell: UITableViewCell, item: TableItem, at index: Int) {}
+    func didEndDiplaying(cell: UITableViewCell, item: TableItem, at index: Int) {}
 }
 
 

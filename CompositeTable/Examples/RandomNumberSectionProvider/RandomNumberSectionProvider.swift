@@ -40,7 +40,7 @@ class RandomNumberSectionProvider: TableViewSectionProvider {
     
     // MARK: - Cells
 
-    func configure(cell: UITableViewCell, for item: TableItem, at index: UInt) {
+    func configure(cell: UITableViewCell, for item: TableItem, at index: Int) {
         guard let cell = cell as? SimpleTableCell else { return }
         cell.titleLabel.text = item.id
     }
