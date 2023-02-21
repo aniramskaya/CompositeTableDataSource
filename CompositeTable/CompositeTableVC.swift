@@ -16,7 +16,8 @@ class CompositeTableVC: UITableViewController {
         self.dataSource = CompositeTableDataSource(tableView: tableView)
         self.dataSource?.setSectionProviders([
             RandomNumberSectionProvider(view: TableSectionView(id: "first")),
-            RandomNumberSectionProvider(view: TableSectionView(id: "second"))
+            RandomNumberSectionProvider(view: TableSectionView(id: "second")),
+            GallerySectionProvider()
         ])
         
         attachNavBarButtons()
@@ -57,7 +58,7 @@ class CompositeTableVC: UITableViewController {
     
     @objc func refresh() {
         dataSource?.sectionProviders.forEach {
-            ($0 as! RandomNumberSectionProvider).generate()
+            ($0 as? RandomNumberSectionProvider)?.generate()
         }
     }
     
