@@ -8,30 +8,56 @@
 import UIKit
 
 class GallerySectionProvider: TableViewSectionProvider {
-    var view: TableSectionView
+    let id: String
+    private(set) var isVisible = true
+    private(set) var items: [TableItem] = []
+    private(set) var headerView: UIView?
+    private(set) var footerView: UIView?
+    
+    var onNeedsDisplay: (() -> Void)?
     
     var galleryViewControllers: [GalleryViewController] = []
     
-    init() {
-        view = TableSectionView(id: "Galleries")
+    init(id: String) {
+        self.id = id
     }
     
+    // MARK: - Lifecycle
+
     let cellIdentifier = "ContainerCell"
     func registerCells(for tableView: UITableView) {
         tableView.register(ContainerCell.self, forCellReuseIdentifier: cellIdentifier)
     }
+    
+    func viewWillAppear() {
+        guard galleryViewControllers.isEmpty else { return }
+        galleryViewControllers = makeViewControllers()
+        display(galleryViewControllers.map({
+            BasicTableItem(id: $0.title!, cellReuseIdentifier: cellIdentifier)
+        }))
+    }
+
+    // MARK: - Cells
     
     func configure(cell: UITableViewCell, for item: TableItem, at index: UInt) {
         guard let cell = cell as? ContainerCell else { return }
         cell.embed(viewController: galleryViewControllers[Int(index)])
     }
     
-    func viewWillAppear() {
-        guard galleryViewControllers.isEmpty else { return }
-        galleryViewControllers = makeViewControllers()
-        view.display(with: galleryViewControllers.map({
-            BasicTableItem(id: $0.title!, cellReuseIdentifier: cellIdentifier)
-        }))
+    // MARK: - Public API
+    
+    func toggleFirstCellHeight() {
+        guard let height = findHeightConstraint(in: galleryViewControllers[0].view) else { return }
+        height.constant = height.constant >= 200 ? 128 : 200
+        onNeedsDisplay?()
+    }
+    
+    // MARK: - Private
+    
+    private func display(_ items: [TableItem]) {
+        self.items = items
+        isVisible = true
+        onNeedsDisplay?()
     }
     
     private func makeViewControllers() -> [GalleryViewController] {
@@ -51,6 +77,10 @@ class GallerySectionProvider: TableViewSectionProvider {
         vc3.cellColor = .blue
         vc3.view.heightAnchor.constraint(equalToConstant: 128).isActive = true
         return [vc1, vc2, vc3]
+    }
+    
+    private func findHeightConstraint(in view: UIView) -> NSLayoutConstraint? {
+        view.constraints.first { $0.firstAttribute == .height }
     }
     
 }

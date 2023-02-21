@@ -130,7 +130,7 @@ class CompositeTableDataSource: NSObject {
     private func printFirstSectionDiff() {
         guard !snapshot.isEmpty, !sectionProviders.isEmpty else { return }
         let oldIds = snapshot[0].items.map { $0.id }
-        let newIds = sectionProviders[0].view.items.map { $0.id }
+        let newIds = sectionProviders[0].items.map { $0.id }
         print(oldIds)
         print(newIds)
         print(newIds.difference(from: oldIds))
@@ -138,16 +138,16 @@ class CompositeTableDataSource: NSObject {
     
     private func makeSnapshot() -> [TableSectionData] {
         return sectionProviders.compactMap { (provider) -> TableSectionData? in
-            guard provider.view.isDisplaying else { return nil }
-            return TableSectionData(id: provider.view.id, items: provider.view.items)
+            guard provider.isVisible else { return nil }
+            return TableSectionData(id: provider.id, items: provider.items)
         }
     }
     
     private func attachingOnNeedsDisplay(_ providers: [TableViewSectionProvider]) -> [TableViewSectionProvider] {
         providers.map {
-            let provider = $0
+            var provider = $0
             provider.registerCells(for: tableView)
-            provider.view.onNeedsDisplay = { [weak self] in
+            provider.onNeedsDisplay = { [weak self] in
                 self?.requestRefresh()
             }
             return provider
@@ -180,19 +180,19 @@ extension CompositeTableDataSource: UITableViewDataSource {
 
 extension CompositeTableDataSource: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return sectionProviders[section].view.headerView == nil ? CGFloat.ulpOfOne : UITableView.automaticDimension
+        return sectionProviders[section].headerView == nil ? CGFloat.ulpOfOne : UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return sectionProviders[section].view.headerView
+        return sectionProviders[section].headerView
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return sectionProviders[section].view.footerView == nil ? CGFloat.ulpOfOne : UITableView.automaticDimension
+        return sectionProviders[section].footerView == nil ? CGFloat.ulpOfOne : UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return sectionProviders[section].view.footerView
+        return sectionProviders[section].footerView
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

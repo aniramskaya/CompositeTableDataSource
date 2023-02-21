@@ -15,9 +15,9 @@ class CompositeTableVC: UITableViewController {
         super.viewDidLoad()
         self.dataSource = CompositeTableDataSource(tableView: tableView)
         self.dataSource?.setSectionProviders([
-            RandomNumberSectionProvider(view: TableSectionView(id: "first")),
-            RandomNumberSectionProvider(view: TableSectionView(id: "second")),
-            GallerySectionProvider()
+            RandomNumberSectionProvider(id: "first"),
+            RandomNumberSectionProvider(id: "second"),
+            GallerySectionProvider(id: "gallery")
         ])
         
         attachNavBarButtons()
@@ -63,10 +63,9 @@ class CompositeTableVC: UITableViewController {
     }
     
     @objc func toggleFirstCellHeight() {
-        if let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? SimpleTableCell {
-            cell.toggleHeight()
-            tableView.beginUpdates()
-            tableView.endUpdates()
+        guard let sectionProviders = dataSource?.sectionProviders else { return }
+        for provider in sectionProviders where provider is GallerySectionProvider {
+            (provider as! GallerySectionProvider).toggleFirstCellHeight()
         }
     }
     

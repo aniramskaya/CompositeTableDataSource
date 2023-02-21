@@ -8,16 +8,25 @@
 import UIKit
 
 class RandomNumberSectionProvider: TableViewSectionProvider {
-    var view: TableSectionView
+    let id: String
+    private(set) var isVisible = true
+    private(set) var items: [TableItem] = []
+    private(set) var headerView: UIView?
+    private(set) var footerView: UIView?
+    
+    var onNeedsDisplay: (() -> Void)?
+
+    
     let maxItemCount: Int
-    init(view: TableSectionView, maxItemCount: Int = 10) {
-        self.view = view
+    init(id: String, maxItemCount: Int = 10) {
+        self.id = id
         self.maxItemCount = maxItemCount
         attachHeaderView()
     }
     
+    // MARK: - Lifecycle
+
     let cellReuseIdentifier = "SimpleTableCell"
-    
     func registerCells(for tableView: UITableView) {
         tableView.register(
             UINib(nibName: "SimpleTableCell", bundle: nil),
@@ -29,23 +38,36 @@ class RandomNumberSectionProvider: TableViewSectionProvider {
         generate()
     }
     
+    // MARK: - Cells
+
     func configure(cell: UITableViewCell, for item: TableItem, at index: UInt) {
         guard let cell = cell as? SimpleTableCell else { return }
         cell.titleLabel.text = item.id
     }
     
+    // MARK: - Public API
+
     func generate() {
         let numberOfItems = Int.random(in: 1...maxItemCount)
         let items = (0...numberOfItems).map {
             BasicTableItem(id: "\($0)", cellReuseIdentifier: cellReuseIdentifier)
         }.shuffled()
-        view.display(with: items)
+        display(items)
     }
     
+    // MARK: - Private
+
+    private func display(_ items: [TableItem]) {
+        self.items = items
+        isVisible = true
+        onNeedsDisplay?()
+    }
+    
+
     private func attachHeaderView() {
-        view.headerView = RandomNumberSectionHeader(title: "Section header \(view.id)")
-        view.headerView?.backgroundColor = .lightGray
-        view.footerView = RandomNumberSectionHeader(title: "Section footer \(view.id)")
-        view.footerView?.backgroundColor = .gray
+        headerView = RandomNumberSectionHeader(title: "Section header \(id)")
+        headerView?.backgroundColor = .lightGray
+        footerView = RandomNumberSectionHeader(title: "Section footer \(id)")
+        footerView?.backgroundColor = .gray
     }
 }

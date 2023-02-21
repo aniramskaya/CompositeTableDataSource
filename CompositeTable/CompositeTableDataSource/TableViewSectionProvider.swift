@@ -8,12 +8,17 @@
 import UIKit
 
 protocol TableViewSectionProvider {
-    var view: TableSectionView { get set }
-    
-    func registerCells(for tableView: UITableView)
-    
+    var id: String { get }
+    var isVisible: Bool { get }
+    var items: [TableItem] { get }
+    var headerView: UIView?  { get }
+    var footerView: UIView? { get }
+
+    var onNeedsDisplay: (() -> Void)? { get set }
+
     // MARK: - Lifecycle events
     
+    func registerCells(for tableView: UITableView)
     func viewWillAppear()
     func viewWillDisappear()
 
@@ -32,6 +37,7 @@ extension TableViewSectionProvider {
     func viewWillAppear() {}
     func viewWillDisappear() {}
     
+    // MARK: - Behaviour
     func willDisplay(cell: UITableViewCell, item: TableItem, at index: UInt) {}
     func didEndDiplaying(cell: UITableViewCell, item: TableItem, at index: UInt) {}
 }

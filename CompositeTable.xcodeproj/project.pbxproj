@@ -31,7 +31,6 @@
 		CC7C20B1299E0AAF00C5CF07 /* RandomNumberSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C20B0299E0AAF00C5CF07 /* RandomNumberSectionHeader.swift */; };
 		CC7C20B3299E4E0E00C5CF07 /* ShoppingSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C20B2299E4E0E00C5CF07 /* ShoppingSearchVC.swift */; };
 		CC7C20B6299F2C0200C5CF07 /* TableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C20B5299F2C0200C5CF07 /* TableItem.swift */; };
-		CC7C20B8299F2C4400C5CF07 /* TableSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C20B7299F2C4400C5CF07 /* TableSectionView.swift */; };
 		CC7C20BA299F2C7F00C5CF07 /* CompositeTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C20B9299F2C7F00C5CF07 /* CompositeTableDataSource.swift */; };
 /* End PBXBuildFile section */
 
@@ -81,7 +80,6 @@
 		CC7C20B0299E0AAF00C5CF07 /* RandomNumberSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNumberSectionHeader.swift; sourceTree = "<group>"; };
 		CC7C20B2299E4E0E00C5CF07 /* ShoppingSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingSearchVC.swift; sourceTree = "<group>"; };
 		CC7C20B5299F2C0200C5CF07 /* TableItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableItem.swift; sourceTree = "<group>"; };
-		CC7C20B7299F2C4400C5CF07 /* TableSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableSectionView.swift; sourceTree = "<group>"; };
 		CC7C20B9299F2C7F00C5CF07 /* CompositeTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositeTableDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -212,7 +210,6 @@
 			children = (
 				CC7C20A5299C976D00C5CF07 /* TableViewSectionProvider.swift */,
 				CC7C20B5299F2C0200C5CF07 /* TableItem.swift */,
-				CC7C20B7299F2C4400C5CF07 /* TableSectionView.swift */,
 				CC7C20B9299F2C7F00C5CF07 /* CompositeTableDataSource.swift */,
 			);
 			path = CompositeTableDataSource;
@@ -354,7 +351,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC7C20B3299E4E0E00C5CF07 /* ShoppingSearchVC.swift in Sources */,
-				CC7C20B8299F2C4400C5CF07 /* TableSectionView.swift in Sources */,
 				CC7C20A6299C976D00C5CF07 /* TableViewSectionProvider.swift in Sources */,
 				CC7C20BA299F2C7F00C5CF07 /* CompositeTableDataSource.swift in Sources */,
 				CC17CDBD298FEB230066A7C8 /* CompositeTableVC.swift in Sources */,
