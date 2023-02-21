@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TableItem {
-    let id: String
-    let cellReuseIdentifier: String
+protocol TableItem {
+    var id: String { get }
+    var cellReuseIdentifier: String { get }
 }

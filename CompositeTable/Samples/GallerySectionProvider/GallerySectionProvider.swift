@@ -30,7 +30,7 @@ class GallerySectionProvider: TableViewSectionProvider {
         guard galleryViewControllers.isEmpty else { return }
         galleryViewControllers = makeViewControllers()
         view.display(with: galleryViewControllers.map({
-            TableItem(id: $0.title!, cellReuseIdentifier: cellIdentifier)
+            BasicTableItem(id: $0.title!, cellReuseIdentifier: cellIdentifier)
         }))
     }
     

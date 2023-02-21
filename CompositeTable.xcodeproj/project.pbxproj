@@ -23,6 +23,7 @@
 		CC63AD2F29A3965C00FDB198 /* GalleryTabVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC63AD2E29A3965C00FDB198 /* GalleryTabVC.swift */; };
 		CC63AD3329A39B6100FDB198 /* ContainerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC63AD3229A39B6100FDB198 /* ContainerCell.swift */; };
 		CC63AD3529A39C0700FDB198 /* GallerySectionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC63AD3429A39C0700FDB198 /* GallerySectionProvider.swift */; };
+		CC63AD3729A47C6900FDB198 /* BasicTableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC63AD3629A47C6900FDB198 /* BasicTableItem.swift */; };
 		CC7C20A6299C976D00C5CF07 /* TableViewSectionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C20A5299C976D00C5CF07 /* TableViewSectionProvider.swift */; };
 		CC7C20A8299CE39A00C5CF07 /* RandomNumberSectionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C20A7299CE39A00C5CF07 /* RandomNumberSectionProvider.swift */; };
 		CC7C20AA299CE40C00C5CF07 /* SimpleTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C20A9299CE40C00C5CF07 /* SimpleTableCell.swift */; };
@@ -72,6 +73,7 @@
 		CC63AD2E29A3965C00FDB198 /* GalleryTabVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryTabVC.swift; sourceTree = "<group>"; };
 		CC63AD3229A39B6100FDB198 /* ContainerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerCell.swift; sourceTree = "<group>"; };
 		CC63AD3429A39C0700FDB198 /* GallerySectionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GallerySectionProvider.swift; sourceTree = "<group>"; };
+		CC63AD3629A47C6900FDB198 /* BasicTableItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicTableItem.swift; sourceTree = "<group>"; };
 		CC7C20A5299C976D00C5CF07 /* TableViewSectionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewSectionProvider.swift; sourceTree = "<group>"; };
 		CC7C20A7299CE39A00C5CF07 /* RandomNumberSectionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNumberSectionProvider.swift; sourceTree = "<group>"; };
 		CC7C20A9299CE40C00C5CF07 /* SimpleTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTableCell.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 				CC63AD2429A38FCB00FDB198 /* Gallery */,
 				CC63AD2329A38FA100FDB198 /* RandomNumberSectionProvider */,
 				CC7C20B2299E4E0E00C5CF07 /* ShoppingSearchVC.swift */,
+				CC63AD3629A47C6900FDB198 /* BasicTableItem.swift */,
 			);
 			path = Samples;
 			sourceTree = "<group>";
@@ -358,6 +361,7 @@
 				CC17CDB9298FEB230066A7C8 /* AppDelegate.swift in Sources */,
 				CC7C20A8299CE39A00C5CF07 /* RandomNumberSectionProvider.swift in Sources */,
 				CC63AD2629A38FE200FDB198 /* GalleryViewController.swift in Sources */,
+				CC63AD3729A47C6900FDB198 /* BasicTableItem.swift in Sources */,
 				CC7C20AA299CE40C00C5CF07 /* SimpleTableCell.swift in Sources */,
 				CC63AD3329A39B6100FDB198 /* ContainerCell.swift in Sources */,
 				CC7C20B1299E0AAF00C5CF07 /* RandomNumberSectionHeader.swift in Sources */,

@@ -37,7 +37,7 @@ class RandomNumberSectionProvider: TableViewSectionProvider {
     func generate() {
         let numberOfItems = Int.random(in: 1...maxItemCount)
         let items = (0...numberOfItems).map {
-            TableItem(id: "\($0)", cellReuseIdentifier: cellReuseIdentifier)
+            BasicTableItem(id: "\($0)", cellReuseIdentifier: cellReuseIdentifier)
         }.shuffled()
         view.display(with: items)
     }
