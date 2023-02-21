@@ -10,7 +10,7 @@ import UIKit
 class GallerySectionProvider: TableViewSectionProvider {
     let id: String
     private(set) var isVisible = true
-    private(set) var items: [TableItem] = []
+    private(set) var cellItems: [TableItem] = []
     private(set) var headerView: UIView?
     private(set) var footerView: UIView?
     
@@ -55,7 +55,7 @@ class GallerySectionProvider: TableViewSectionProvider {
     // MARK: - Private
     
     private func display(_ items: [TableItem]) {
-        self.items = items
+        self.cellItems = items
         isVisible = true
         onNeedsDisplay?()
     }

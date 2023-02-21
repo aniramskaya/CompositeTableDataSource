@@ -10,7 +10,7 @@ import UIKit
 protocol TableViewSectionProvider {
     var id: String { get }
     var isVisible: Bool { get }
-    var items: [TableItem] { get }
+    var cellItems: [TableItem] { get }
     var headerView: UIView?  { get }
     var footerView: UIView? { get }
 

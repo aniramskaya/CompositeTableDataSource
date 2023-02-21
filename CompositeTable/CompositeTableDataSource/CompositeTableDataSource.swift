@@ -130,7 +130,7 @@ class CompositeTableDataSource: NSObject {
     private func printFirstSectionDiff() {
         guard !snapshot.isEmpty, !sectionProviders.isEmpty else { return }
         let oldIds = snapshot[0].items.map { $0.id }
-        let newIds = sectionProviders[0].items.map { $0.id }
+        let newIds = sectionProviders[0].cellItems.map { $0.id }
         print(oldIds)
         print(newIds)
         print(newIds.difference(from: oldIds))
@@ -139,7 +139,7 @@ class CompositeTableDataSource: NSObject {
     private func makeSnapshot() -> [TableSectionData] {
         return sectionProviders.compactMap { (provider) -> TableSectionData? in
             guard provider.isVisible else { return nil }
-            return TableSectionData(id: provider.id, items: provider.items)
+            return TableSectionData(id: provider.id, items: provider.cellItems)
         }
     }
     
