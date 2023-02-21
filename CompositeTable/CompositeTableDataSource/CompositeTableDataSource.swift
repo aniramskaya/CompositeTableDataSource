@@ -50,8 +50,6 @@ class CompositeTableDataSource: NSObject {
     }
     
     private func reloadTable() {
-        print("Starting reload data")
-        printFirstSectionDiff()
         let newSnapshot = makeSnapshot()
         if snapshot.isEmpty {
             snapshot = newSnapshot
@@ -125,15 +123,6 @@ class CompositeTableDataSource: NSObject {
             tableView.insertSections(sectionsToInsert, with: animation)
             tableView.insertRows(at: rowsToInsert, with: animation)
         }
-    }
-    
-    private func printFirstSectionDiff() {
-        guard !snapshot.isEmpty, !sectionProviders.isEmpty else { return }
-        let oldIds = snapshot[0].items.map { $0.id }
-        let newIds = sectionProviders[0].cellItems.map { $0.id }
-        print(oldIds)
-        print(newIds)
-        print(newIds.difference(from: oldIds))
     }
     
     private func makeSnapshot() -> [TableSectionData] {
