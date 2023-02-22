@@ -29,7 +29,7 @@ class GallerySectionProvider: TableViewSectionProvider {
         context.register(ContainerCell.self, forCellReuseIdentifier: cellIdentifier)
     }
     
-    func viewWillAppear() {
+    func reloadIfNeeded() {
         guard galleryViewControllers.isEmpty else { return }
         galleryViewControllers = makeViewControllers()
         display(galleryViewControllers.map({

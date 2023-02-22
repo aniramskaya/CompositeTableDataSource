@@ -34,7 +34,7 @@ class RandomNumberSectionProvider: TableViewSectionProvider {
         )
     }
     
-    func viewWillAppear() {
+    func reloadIfNeeded() {
         generate()
     }
     

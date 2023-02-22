@@ -28,13 +28,8 @@ class CompositeTableDataSource: NSObject {
     // MARK: - View lifecycle support
      
     func viewWillAppear() {
-        sectionProviders.forEach { $0.viewWillAppear() }
+        sectionProviders.forEach { $0.reloadIfNeeded() }
     }
-
-    func viewWillDisappear() {
-        sectionProviders.forEach { $0.viewWillDisappear() }
-    }
-
     
     // MARK: - Private
     
@@ -132,15 +127,34 @@ class CompositeTableDataSource: NSObject {
         }
     }
     
-    private func attachingOnNeedsDisplay(_ providers: [TableViewSectionProvider]) -> [TableViewSectionProvider] {
-        providers.map {
-            var provider = $0
-            provider.registerCells(for: tableView)
+    private func attach(providers: [TableViewSectionProvider]) {
+        var oldProviders = sectionProviders
+        var newProviders = providers
+        let oldProvidersIds = oldProviders.map { $0.id }
+        let newProvidersIds = newProviders.map { $0.id }
+
+        func attach(_ provider: inout TableViewSectionProvider) {
             provider.onNeedsDisplay = { [weak self] in
                 self?.requestRefresh()
             }
-            return provider
+            provider.registerCells(for: tableView)
         }
+        
+        func detach(_ provider: inout TableViewSectionProvider) {
+            provider.onNeedsDisplay = nil
+            provider.unregisterCells(for: tableView)
+        }
+        
+        let diff = newProvidersIds.difference(from: oldProvidersIds)
+        for change in diff {
+            switch change {
+            case let .insert(offset: offset, element: _, associatedWith: _):
+                attach(&newProviders[offset])
+            case let .remove(offset: offset, element: _, associatedWith: _):
+                detach(&oldProviders[offset])
+            }
+        }
+        sectionProviders = providers
     }
 }
 
@@ -148,7 +162,7 @@ extension CompositeTableDataSource: UITableViewDataSource {
     // MARK: - UITableViewDataSource
     
     func setSectionProviders(_ providers: [TableViewSectionProvider]) {
-        sectionProviders = attachingOnNeedsDisplay(providers)
+        attach(providers: providers)
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
