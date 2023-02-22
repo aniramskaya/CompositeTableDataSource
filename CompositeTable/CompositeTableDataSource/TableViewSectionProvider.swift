@@ -18,7 +18,7 @@ protocol TableViewSectionProvider {
 
     // MARK: - Lifecycle events
     
-    func registerCells(for tableView: UITableView)
+    func registerCells(for context: TableViewCellRegistration)
     func viewWillAppear()
     func viewWillDisappear()
 

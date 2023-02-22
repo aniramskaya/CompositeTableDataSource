@@ -24,6 +24,7 @@
 		CC63AD3329A39B6100FDB198 /* ContainerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC63AD3229A39B6100FDB198 /* ContainerCell.swift */; };
 		CC63AD3529A39C0700FDB198 /* GallerySectionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC63AD3429A39C0700FDB198 /* GallerySectionProvider.swift */; };
 		CC63AD3729A47C6900FDB198 /* BasicTableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC63AD3629A47C6900FDB198 /* BasicTableItem.swift */; };
+		CC63AD3B29A5D91D00FDB198 /* TableViewCellRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC63AD3A29A5D91D00FDB198 /* TableViewCellRegistration.swift */; };
 		CC7C20A6299C976D00C5CF07 /* TableViewSectionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C20A5299C976D00C5CF07 /* TableViewSectionProvider.swift */; };
 		CC7C20A8299CE39A00C5CF07 /* RandomNumberSectionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C20A7299CE39A00C5CF07 /* RandomNumberSectionProvider.swift */; };
 		CC7C20AA299CE40C00C5CF07 /* SimpleTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C20A9299CE40C00C5CF07 /* SimpleTableCell.swift */; };
@@ -74,6 +75,7 @@
 		CC63AD3429A39C0700FDB198 /* GallerySectionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GallerySectionProvider.swift; sourceTree = "<group>"; };
 		CC63AD3629A47C6900FDB198 /* BasicTableItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicTableItem.swift; sourceTree = "<group>"; };
 		CC63AD3929A48F0E00FDB198 /* Readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Readme.md; sourceTree = SOURCE_ROOT; };
+		CC63AD3A29A5D91D00FDB198 /* TableViewCellRegistration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellRegistration.swift; sourceTree = "<group>"; };
 		CC7C20A5299C976D00C5CF07 /* TableViewSectionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewSectionProvider.swift; sourceTree = "<group>"; };
 		CC7C20A7299CE39A00C5CF07 /* RandomNumberSectionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNumberSectionProvider.swift; sourceTree = "<group>"; };
 		CC7C20A9299CE40C00C5CF07 /* SimpleTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTableCell.swift; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 				CC7C20A5299C976D00C5CF07 /* TableViewSectionProvider.swift */,
 				CC7C20B5299F2C0200C5CF07 /* TableItem.swift */,
 				CC7C20B9299F2C7F00C5CF07 /* CompositeTableDataSource.swift */,
+				CC63AD3A29A5D91D00FDB198 /* TableViewCellRegistration.swift */,
 			);
 			path = CompositeTableDataSource;
 			sourceTree = "<group>";
@@ -360,6 +363,7 @@
 				CC7C20A8299CE39A00C5CF07 /* RandomNumberSectionProvider.swift in Sources */,
 				CC63AD2629A38FE200FDB198 /* GalleryViewController.swift in Sources */,
 				CC63AD3729A47C6900FDB198 /* BasicTableItem.swift in Sources */,
+				CC63AD3B29A5D91D00FDB198 /* TableViewCellRegistration.swift in Sources */,
 				CC7C20AA299CE40C00C5CF07 /* SimpleTableCell.swift in Sources */,
 				CC63AD3329A39B6100FDB198 /* ContainerCell.swift in Sources */,
 				CC7C20B1299E0AAF00C5CF07 /* RandomNumberSectionHeader.swift in Sources */,

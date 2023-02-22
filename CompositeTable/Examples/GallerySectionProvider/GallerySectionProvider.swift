@@ -25,8 +25,8 @@ class GallerySectionProvider: TableViewSectionProvider {
     // MARK: - Lifecycle
 
     let cellIdentifier = "ContainerCell"
-    func registerCells(for tableView: UITableView) {
-        tableView.register(ContainerCell.self, forCellReuseIdentifier: cellIdentifier)
+    func registerCells(for context: TableViewCellRegistration) {
+        context.register(ContainerCell.self, forCellReuseIdentifier: cellIdentifier)
     }
     
     func viewWillAppear() {

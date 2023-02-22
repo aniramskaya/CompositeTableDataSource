@@ -27,8 +27,8 @@ class RandomNumberSectionProvider: TableViewSectionProvider {
     // MARK: - Lifecycle
 
     let cellReuseIdentifier = "SimpleTableCell"
-    func registerCells(for tableView: UITableView) {
-        tableView.register(
+    func registerCells(for context: TableViewCellRegistration) {
+        context.register(
             UINib(nibName: "SimpleTableCell", bundle: nil),
             forCellReuseIdentifier: cellReuseIdentifier
         )
