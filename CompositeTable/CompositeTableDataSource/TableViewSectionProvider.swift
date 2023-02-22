@@ -25,21 +25,20 @@ protocol TableViewSectionProvider {
     // MARK: - Cells
 
     func configure(cell: UITableViewCell, for item: TableItem, at index: Int)
-
-    // MARK: - Behaviour
-
-    func willDisplay(cell: UITableViewCell, item: TableItem, at index: Int)
-    func didEndDiplaying(cell: UITableViewCell, item: TableItem, at index: Int)
 }
 
 extension TableViewSectionProvider {
     // MARK: - Lifecycle events
     func viewWillAppear() {}
     func viewWillDisappear() {}
-    
-    // MARK: - Behaviour
+}
+
+protocol TableViewCellDisplayEvents {
+    func willDisplay(cell: UITableViewCell, item: TableItem, at index: Int)
+    func didEndDiplaying(cell: UITableViewCell, item: TableItem, at index: Int)
+}
+
+extension TableViewCellDisplayEvents {
     func willDisplay(cell: UITableViewCell, item: TableItem, at index: Int) {}
     func didEndDiplaying(cell: UITableViewCell, item: TableItem, at index: Int) {}
 }
-
-

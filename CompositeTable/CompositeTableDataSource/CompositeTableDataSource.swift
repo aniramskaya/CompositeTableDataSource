@@ -185,15 +185,17 @@ extension CompositeTableDataSource: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let eventListener = sectionProviders[indexPath.section] as? TableViewCellDisplayEvents else { return }
         let item = snapshot[indexPath.section].items[indexPath.row]
-        sectionProviders[indexPath.section].willDisplay(cell: cell, item: item, at: indexPath.row)
+        eventListener.willDisplay(cell: cell, item: item, at: indexPath.row)
     }
     
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let eventListener = sectionProviders[indexPath.section] as? TableViewCellDisplayEvents else { return }
         guard indexPath.section < snapshot.count else { return }
         let section = snapshot[indexPath.section]
         guard indexPath.row < section.items.count else { return }
         let item = section.items[indexPath.row]
-        sectionProviders[indexPath.section].didEndDiplaying(cell: cell, item: item, at: indexPath.row)
+        eventListener.didEndDiplaying(cell: cell, item: item, at: indexPath.row)
     }
 }
