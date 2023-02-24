@@ -12,14 +12,13 @@ import UIKit
 final class CompositeTableDataSourceTests: XCTestCase {
     func test_tableView_StaysEmptyWhenDataSourceHasNoProviders() throws {
         let tableView = UITableView()
-        let sut = CompositeTableDataSource(tableView: tableView)
+        let _ = CompositeTableDataSource(tableView: tableView)
         
         XCTAssertEqual(tableView.numberOfSections, 0)
     }
     
     func test_dataSource_CallsRegisterCellsOnProviderAttached() throws {
-        let tableView = UITableView()
-        let sut = CompositeTableDataSource(tableView: tableView)
+        let (_, sut) = makeSUT()
         let provider = TestSectionProvider(id: uniqueString())
         
         sut.setSectionProviders([provider])
@@ -28,8 +27,7 @@ final class CompositeTableDataSourceTests: XCTestCase {
     }
     
     func test_dataSource_CallsUnregisterCellsOnProviderDetached() throws {
-        let tableView = UITableView()
-        let sut = CompositeTableDataSource(tableView: tableView)
+        let (_, sut) = makeSUT()
         let provider = TestSectionProvider(id: uniqueString())
         
         sut.setSectionProviders([provider])
@@ -38,7 +36,15 @@ final class CompositeTableDataSourceTests: XCTestCase {
         XCTAssertEqual(provider.messages, [.registerCells, .unregisterCells])
     }
     
-    func uniqueString() -> String {
+    // MARK: - Private
+    
+    private func makeSUT() -> (UITableView, CompositeTableDataSource) {
+        let tableView = UITableView()
+        let sut = CompositeTableDataSource(tableView: tableView)
+        return (tableView, sut)
+    }
+    
+    private func uniqueString() -> String {
         UUID().uuidString
     }
 }
