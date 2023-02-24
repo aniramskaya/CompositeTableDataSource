@@ -13,7 +13,7 @@
 		CC17CDC0298FEB230066A7C8 /* CompositeTableVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC17CDBE298FEB230066A7C8 /* CompositeTableVC.storyboard */; };
 		CC17CDC2298FEB240066A7C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC17CDC1298FEB240066A7C8 /* Assets.xcassets */; };
 		CC17CDC5298FEB240066A7C8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC17CDC3298FEB240066A7C8 /* LaunchScreen.storyboard */; };
-		CC17CDD0298FEB240066A7C8 /* CompositeTableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC17CDCF298FEB240066A7C8 /* CompositeTableTests.swift */; };
+		CC17CDD0298FEB240066A7C8 /* CompositeTableDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC17CDCF298FEB240066A7C8 /* CompositeTableDataSourceTests.swift */; };
 		CC17CDDA298FEB240066A7C8 /* CompositeTableUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC17CDD9298FEB240066A7C8 /* CompositeTableUITests.swift */; };
 		CC17CDDC298FEB240066A7C8 /* CompositeTableUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC17CDDB298FEB240066A7C8 /* CompositeTableUITestsLaunchTests.swift */; };
 		CC63AD2629A38FE200FDB198 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC63AD2529A38FE200FDB198 /* GalleryViewController.swift */; };
@@ -62,7 +62,7 @@
 		CC17CDC4298FEB240066A7C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CC17CDC6298FEB240066A7C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CC17CDCB298FEB240066A7C8 /* CompositeTableTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CompositeTableTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CC17CDCF298FEB240066A7C8 /* CompositeTableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositeTableTests.swift; sourceTree = "<group>"; };
+		CC17CDCF298FEB240066A7C8 /* CompositeTableDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositeTableDataSourceTests.swift; sourceTree = "<group>"; };
 		CC17CDD5298FEB240066A7C8 /* CompositeTableUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CompositeTableUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC17CDD9298FEB240066A7C8 /* CompositeTableUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositeTableUITests.swift; sourceTree = "<group>"; };
 		CC17CDDB298FEB240066A7C8 /* CompositeTableUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositeTableUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -84,6 +84,7 @@
 		CC7C20B2299E4E0E00C5CF07 /* ShoppingSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingSearchVC.swift; sourceTree = "<group>"; };
 		CC7C20B5299F2C0200C5CF07 /* TableItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableItem.swift; sourceTree = "<group>"; };
 		CC7C20B9299F2C7F00C5CF07 /* CompositeTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositeTableDataSource.swift; sourceTree = "<group>"; };
+		CC8FA5F229A901EF00213291 /* CompositeTableDataSource.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CompositeTableDataSource.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,7 +151,8 @@
 		CC17CDCE298FEB240066A7C8 /* CompositeTableTests */ = {
 			isa = PBXGroup;
 			children = (
-				CC17CDCF298FEB240066A7C8 /* CompositeTableTests.swift */,
+				CC17CDCF298FEB240066A7C8 /* CompositeTableDataSourceTests.swift */,
+				CC8FA5F229A901EF00213291 /* CompositeTableDataSource.md */,
 			);
 			path = CompositeTableTests;
 			sourceTree = "<group>";
@@ -378,7 +380,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC17CDD0298FEB240066A7C8 /* CompositeTableTests.swift in Sources */,
+				CC17CDD0298FEB240066A7C8 /* CompositeTableDataSourceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

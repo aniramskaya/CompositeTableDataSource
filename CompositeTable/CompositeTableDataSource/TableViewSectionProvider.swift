@@ -9,7 +9,7 @@ import UIKit
 
 /// Провайдер секции таблицы, используемый в `CompositeTableDataSource` для разделения работы разных поставщиков данных.
 /// `TableViewSectionProvider` можно рассматривать как View в архитектурных паттернах или как ViewController в терминах UIKit.
-protocol TableViewSectionProvider {
+public protocol TableViewSectionProvider {
     /// Идентификатор секции таблицы. Должен быть уникальным в пределах таблицы.
     var id: String { get }
     

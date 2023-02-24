@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CompositeTableDataSource: NSObject {
+public class CompositeTableDataSource: NSObject {
     private struct TableSectionData {
         var id: String
         var items: [TableItem]
@@ -18,7 +18,7 @@ class CompositeTableDataSource: NSObject {
 
     public private (set) var sectionProviders: [TableViewSectionProvider] = []
 
-    init(tableView: UITableView) {
+    public init(tableView: UITableView) {
         self.tableView = tableView
         super.init()
         tableView.dataSource = self
@@ -27,13 +27,20 @@ class CompositeTableDataSource: NSObject {
 
     // MARK: - View lifecycle support
      
-    func viewWillAppear() {
+    public func viewWillAppear() {
         sectionProviders.forEach { $0.reloadIfNeeded() }
     }
     
+    // MARK: - Public
+
+    func setSectionProviders(_ providers: [TableViewSectionProvider]) {
+        attach(providers: providers)
+    }
+
     // MARK: - Private
     
-    var tableReloadOperation: BlockOperation?
+    private var tableReloadOperation: BlockOperation?
+    // TODO: Поставить защиту от непредвиденных ситуаций когда этот метод вызывается off-screen. Надо ли?
     private func requestRefresh() {
         guard tableReloadOperation == nil else { return }
         let operation = BlockOperation {
@@ -161,19 +168,15 @@ class CompositeTableDataSource: NSObject {
 extension CompositeTableDataSource: UITableViewDataSource {
     // MARK: - UITableViewDataSource
     
-    func setSectionProviders(_ providers: [TableViewSectionProvider]) {
-        attach(providers: providers)
-    }
-
-    func numberOfSections(in tableView: UITableView) -> Int {
+    public func numberOfSections(in tableView: UITableView) -> Int {
         snapshot.count
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         snapshot[section].items.count
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = snapshot[indexPath.section].items[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: item.cellReuseIdentifier, for: indexPath)
         sectionProviders[indexPath.section].configure(cell: cell, for: item, at: indexPath.row)
@@ -182,29 +185,29 @@ extension CompositeTableDataSource: UITableViewDataSource {
 }
 
 extension CompositeTableDataSource: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return sectionProviders[section].headerView == nil ? CGFloat.ulpOfOne : UITableView.automaticDimension
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return sectionProviders[section].headerView
     }
     
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return sectionProviders[section].footerView == nil ? CGFloat.ulpOfOne : UITableView.automaticDimension
     }
     
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return sectionProviders[section].footerView
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let eventListener = sectionProviders[indexPath.section] as? TableViewCellDisplayEvents else { return }
         let item = snapshot[indexPath.section].items[indexPath.row]
         eventListener.willDisplay(cell: cell, item: item, at: indexPath.row)
     }
     
-    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    public func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let eventListener = sectionProviders[indexPath.section] as? TableViewCellDisplayEvents else { return }
         guard indexPath.section < snapshot.count else { return }
         let section = snapshot[indexPath.section]

@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol TableViewCellRegistration {
+public protocol TableViewCellRegistration {
     func register(_ nib: UINib?, forCellReuseIdentifier identifier: String)
     func register(_ cellClass: AnyClass?, forCellReuseIdentifier identifier: String)
 }
