@@ -62,16 +62,21 @@ final class CompositeTableDataSourceTests: XCTestCase {
     // MARK: - Private
     
     private func expectSection(atIndex index: Int, in tableView: UITableView, matches section: TestSection, file: StaticString = #filePath, line: UInt = #line) {
-        XCTAssertEqual(tableView.dataSource?.tableView(tableView, numberOfRowsInSection: index), section.items.count, "Section row count mismatch")
+        XCTAssertEqual(tableView.dataSource?.tableView(tableView, numberOfRowsInSection: index), section.items.count, "Section row count mismatch", file: file, line: line)
         for cellIndex in 0..<section.items.count {
             let cell = tableView.dataSource?.tableView(tableView, cellForRowAt: IndexPath(row: cellIndex, section: index))
             guard let testCell = cell as? TestCell
             else {
-                XCTFail("Expected cell to be TestCell found \(type(of: cell))")
+                XCTFail("Expected cell to be TestCell found \(type(of: cell)) at index \(cellIndex)", file: file, line: line)
                 return
             }
-            XCTAssertEqual(testCell.title, section.items[cellIndex].title, "Expected row \(section.items[cellIndex].title) found \(testCell.title ?? "nil") at index \(cellIndex)")
+            XCTAssertEqual(testCell.title, section.items[cellIndex].title, "Expected row \(section.items[cellIndex].title) found \(testCell.title ?? "nil") at index \(cellIndex)", file: file, line: line)
         }
+        
+        let headerTitle = (tableView.delegate?.tableView?(tableView, viewForHeaderInSection: index) as? TestHeaderFooter)?.title
+        XCTAssertEqual(headerTitle, section.headerTitle, file: file, line: line)
+        let footerTitle = (tableView.delegate?.tableView?(tableView, viewForFooterInSection: index) as? TestHeaderFooter)?.title
+        XCTAssertEqual(footerTitle, section.footerTitle, file: file, line: line)
     }
     
     private func makeTestSection(rowCount: Int = 1, headerTitle: String? = nil, footerTitle: String? = nil ) -> TestSection {
