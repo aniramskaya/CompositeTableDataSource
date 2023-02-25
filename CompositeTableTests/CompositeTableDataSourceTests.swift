@@ -50,9 +50,15 @@ final class CompositeTableDataSourceTests: XCTestCase {
     func test_dataSource_rendersSectionOnProviderAttachment() throws {
         let (tableView, sut) = makeSUT()
         let provider = TestSectionProvider(id: uniqueString())
-        let section = makeTestSection(rowCount: 3)
+        let section = makeTestSection(rowCount: 3, headerTitle: UUID().uuidString, footerTitle: UUID().uuidString)
+        let headerView = TestHeaderFooter()
+        headerView.titleLabel.text = section.headerTitle
+        let footerView = TestHeaderFooter()
+        footerView.titleLabel.text = section.footerTitle
 
         provider.cellItems = section.items
+        provider.headerView = headerView
+        provider.footerView = footerView
         sut.setSectionProviders([provider])
         RunLoop.main.run(until: Date() + 0.5)
 
@@ -74,9 +80,9 @@ final class CompositeTableDataSourceTests: XCTestCase {
         }
         
         let headerTitle = (tableView.delegate?.tableView?(tableView, viewForHeaderInSection: index) as? TestHeaderFooter)?.title
-        XCTAssertEqual(headerTitle, section.headerTitle, file: file, line: line)
+        XCTAssertEqual(headerTitle, section.headerTitle, "Section header title", file: file, line: line)
         let footerTitle = (tableView.delegate?.tableView?(tableView, viewForFooterInSection: index) as? TestHeaderFooter)?.title
-        XCTAssertEqual(footerTitle, section.footerTitle, file: file, line: line)
+        XCTAssertEqual(footerTitle, section.footerTitle, "Section footer title", file: file, line: line)
     }
     
     private func makeTestSection(rowCount: Int = 1, headerTitle: String? = nil, footerTitle: String? = nil ) -> TestSection {
