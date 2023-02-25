@@ -117,9 +117,9 @@ public class CompositeTableDataSource: NSObject {
             rowsToInsert.append(contentsOf: insertions.map { IndexPath(row: $0, section: newSectionIndex) })
         }
         
-        snapshot = new
         
         tableView.performBatchUpdates {
+            snapshot = new
             tableView.deleteRows(at: rowsToDelete, with: animation)
             tableView.deleteSections(sectionsToDelete, with: animation)
             tableView.insertSections(sectionsToInsert, with: animation)
@@ -162,6 +162,8 @@ public class CompositeTableDataSource: NSObject {
             }
         }
         sectionProviders = providers
+        snapshot = []
+        requestRefresh()
     }
 }
 
