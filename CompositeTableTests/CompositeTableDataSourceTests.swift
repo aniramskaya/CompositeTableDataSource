@@ -49,23 +49,43 @@ final class CompositeTableDataSourceTests: XCTestCase {
     
     func test_dataSource_rendersSectionOnProviderAttachment() throws {
         let (tableView, sut) = makeSUT()
-        let provider = TestSectionProvider(id: uniqueString())
-        let section = makeTestSection(rowCount: 3, headerTitle: UUID().uuidString, footerTitle: UUID().uuidString)
-        let headerView = TestHeaderFooter()
-        headerView.titleLabel.text = section.headerTitle
-        let footerView = TestHeaderFooter()
-        footerView.titleLabel.text = section.footerTitle
+        let section = makeTestSection(rowCount: 3, headerTitle: uniqueString(), footerTitle: uniqueString())
 
-        provider.cellItems = section.items
-        provider.headerView = headerView
-        provider.footerView = footerView
+        let provider = makeProvider(section)
         sut.setSectionProviders([provider])
         RunLoop.main.run(until: Date() + 0.5)
 
         expectSection(atIndex: 0, in: tableView, toMatch: section)
     }
 
+    func test_dataSource_rendersAllSectionsOnProviderListAttachment() throws {
+        let (tableView, sut) = makeSUT()
+        let numberOfSections = 3
+        let sections = (0..<numberOfSections).map { _ in
+            makeTestSection(rowCount: 3, headerTitle: uniqueString(), footerTitle: uniqueString())
+            
+        }
+        let providers = sections.map { makeProvider($0) }
+        sut.setSectionProviders(providers)
+        RunLoop.main.run(until: Date() + 0.5)
+
+        sections.enumerated().forEach { index, section in
+            expectSection(atIndex: index, in: tableView, toMatch: section)
+        }
+    }
     // MARK: - Private
+    
+    private func makeProvider(_ section: TestSection) -> TestSectionProvider {
+        let provider = TestSectionProvider(id: section.id)
+        let headerView = TestHeaderFooter()
+        headerView.titleLabel.text = section.headerTitle
+        let footerView = TestHeaderFooter()
+        footerView.titleLabel.text = section.footerTitle
+        provider.cellItems = section.items
+        provider.headerView = headerView
+        provider.footerView = footerView
+        return provider
+    }
     
     private func expectSection(atIndex index: Int, in tableView: UITableView, toMatch section: TestSection, file: StaticString = #filePath, line: UInt = #line) {
         XCTAssertEqual(tableView.dataSource?.tableView(tableView, numberOfRowsInSection: index), section.items.count, "Section row count mismatch", file: file, line: line)
@@ -87,8 +107,9 @@ final class CompositeTableDataSourceTests: XCTestCase {
     
     private func makeTestSection(rowCount: Int = 1, headerTitle: String? = nil, footerTitle: String? = nil ) -> TestSection {
         return TestSection(
+            id: uniqueString(),
             items: (0..<rowCount).map {
-                TestTableItem(id: UUID().uuidString, cellReuseIdentifier: TestSectionProvider.cellReuseIdentifier, title: "\($0)")
+                TestTableItem(id: uniqueString(), cellReuseIdentifier: TestSectionProvider.cellReuseIdentifier, title: "\($0)")
                 
             },
             headerTitle: headerTitle,
@@ -176,6 +197,7 @@ struct TestTableItem: CompositeTable.TableItem {
 }
 
 struct TestSection {
+    let id: String
     let items: [TestTableItem]
     let headerTitle: String?
     let footerTitle: String?
