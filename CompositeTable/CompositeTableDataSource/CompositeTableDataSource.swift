@@ -10,6 +10,7 @@ import UIKit
 public class CompositeTableDataSource: NSObject {
     private struct TableSectionData {
         var id: String
+        var providerIndex: Int
         var items: [TableItem]
     }
 
@@ -102,7 +103,7 @@ public class CompositeTableDataSource: NSObject {
         
         var rowsToDelete: [IndexPath] = []
         var rowsToInsert: [IndexPath] = []
-        for section in intactOldSections {
+        for section in 0..<intactOldSections.count {
             let oldSectionIndex = intactOldSections[section]
             let newSectionIndex = intactNewSections[section]
             let oldItems = old[oldSectionIndex].items.map { $0.id }
@@ -128,10 +129,12 @@ public class CompositeTableDataSource: NSObject {
     }
     
     private func makeSnapshot() -> [TableSectionData] {
-        return sectionProviders.compactMap { (provider) -> TableSectionData? in
-            guard provider.isVisible else { return nil }
-            return TableSectionData(id: provider.id, items: provider.cellItems)
+        var result: [TableSectionData] = []
+        sectionProviders.enumerated().forEach { index, provider in
+            guard provider.isVisible else { return }
+            result.append(TableSectionData(id: provider.id, providerIndex: index, items: provider.cellItems))
         }
+        return result
     }
     
     private func attach(providers: [TableViewSectionProvider]) {
@@ -179,38 +182,45 @@ extension CompositeTableDataSource: UITableViewDataSource {
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = snapshot[indexPath.section].items[indexPath.row]
+        let section = snapshot[indexPath.section]
+        let item = section.items[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: item.cellReuseIdentifier, for: indexPath)
-        sectionProviders[indexPath.section].configure(cell: cell, for: item, at: indexPath.row)
+        sectionProviders[section.providerIndex].configure(cell: cell, for: item, at: indexPath.row)
         return cell
     }
 }
 
 extension CompositeTableDataSource: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return sectionProviders[section].headerView == nil ? CGFloat.ulpOfOne : UITableView.automaticDimension
+        let providerIndex = snapshot[section].providerIndex
+        return sectionProviders[providerIndex].headerView == nil ? CGFloat.ulpOfOne : UITableView.automaticDimension
     }
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return sectionProviders[section].headerView
+        let providerIndex = snapshot[section].providerIndex
+        return sectionProviders[providerIndex].headerView
     }
     
     public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return sectionProviders[section].footerView == nil ? CGFloat.ulpOfOne : UITableView.automaticDimension
+        let providerIndex = snapshot[section].providerIndex
+        return sectionProviders[providerIndex].footerView == nil ? CGFloat.ulpOfOne : UITableView.automaticDimension
     }
     
     public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return sectionProviders[section].footerView
+        let providerIndex = snapshot[section].providerIndex
+        return sectionProviders[providerIndex].footerView
     }
     
     public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let eventListener = sectionProviders[indexPath.section] as? TableViewCellDisplayEvents else { return }
+        let providerIndex = snapshot[indexPath.section].providerIndex
+        guard let eventListener = sectionProviders[providerIndex] as? TableViewCellDisplayEvents else { return }
         let item = snapshot[indexPath.section].items[indexPath.row]
         eventListener.willDisplay(cell: cell, item: item, at: indexPath.row)
     }
     
     public func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let eventListener = sectionProviders[indexPath.section] as? TableViewCellDisplayEvents else { return }
+        let providerIndex = snapshot[indexPath.section].providerIndex
+        guard let eventListener = sectionProviders[providerIndex] as? TableViewCellDisplayEvents else { return }
         guard indexPath.section < snapshot.count else { return }
         let section = snapshot[indexPath.section]
         guard indexPath.row < section.items.count else { return }

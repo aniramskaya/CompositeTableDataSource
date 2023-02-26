@@ -88,7 +88,39 @@ final class CompositeTableDataSourceTests: XCTestCase {
 
         expectSections(sections, match: tableView)
     }
-    
+
+    func test_dataSource_changesSectionsAccordingToProvidersChanges() throws {
+        let (tableView, sut) = makeSUT()
+
+        var sections = makeTestSections(sectionCount: 3)
+        let providers = makeProviders(sections)
+        
+        sut.setSectionProviders(providers)
+        RunLoop.main.run(until: Date() + 0.5)
+
+        expectSections(sections, match: tableView)
+
+        // remove header and footer for the first section
+        sections[0].headerTitle = nil
+        sections[0].footerTitle = nil
+        updateProvider(providers[0], with: sections[0])
+        
+        // remove one item and append two in the third section
+        sections[2].items.remove(at: 1)
+        sections[2].items.insert(TestTableItem(id: uniqueString(), cellReuseIdentifier: TestSectionProvider.cellReuseIdentifier, title: uniqueString()), at: 0)
+        sections[2].items.append(TestTableItem(id: uniqueString(), cellReuseIdentifier: TestSectionProvider.cellReuseIdentifier, title: uniqueString()))
+        updateProvider(providers[2], with: sections[2])
+
+        // hide the second section
+        sections.remove(at: 1)
+        updateProvider(providers[1], with: nil)
+        
+
+        RunLoop.main.run(until: Date() + 0.5)
+
+        expectSections(sections, match: tableView)
+    }
+
     
     // MARK: - Private
     
@@ -116,19 +148,46 @@ final class CompositeTableDataSourceTests: XCTestCase {
         XCTAssertEqual(footerTitle, section.footerTitle, "Section footer title at \(index)", file: file, line: line)
     }
     
+    private func updateProvider(_ provider: TestSectionProvider, with section: TestSection?) {
+        guard let section else {
+            provider.isVisible = false
+            return
+        }
+        provider.cellItems = section.items
+        if let headerTitle = section.headerTitle {
+            let headerView = TestHeaderFooter()
+            headerView.titleLabel.text = headerTitle
+            provider.headerView = headerView
+        } else {
+            provider.headerView = nil
+        }
+        if let footerTitle = section.footerTitle {
+            let footerView = TestHeaderFooter()
+            footerView.titleLabel.text = footerTitle
+            provider.footerView = footerView
+        } else {
+            provider.footerView = nil
+        }
+        provider.onNeedsDisplay?()
+    }
+    
     private func makeProviders(_ sections: [TestSection]) -> [TestSectionProvider] {
         sections.map { makeProvider($0) }
     }
     
     private func makeProvider(_ section: TestSection) -> TestSectionProvider {
         let provider = TestSectionProvider(id: section.id)
-        let headerView = TestHeaderFooter()
-        headerView.titleLabel.text = section.headerTitle
-        let footerView = TestHeaderFooter()
-        footerView.titleLabel.text = section.footerTitle
+        if let headerTitle = section.headerTitle {
+            let headerView = TestHeaderFooter()
+            headerView.titleLabel.text = headerTitle
+            provider.headerView = headerView
+        }
+        if let footerTitle = section.footerTitle {
+            let footerView = TestHeaderFooter()
+            footerView.titleLabel.text = footerTitle
+            provider.footerView = footerView
+        }
         provider.cellItems = section.items
-        provider.headerView = headerView
-        provider.footerView = footerView
         return provider
     }
     
@@ -231,9 +290,9 @@ struct TestTableItem: CompositeTable.TableItem {
 
 struct TestSection {
     let id: String
-    let items: [TestTableItem]
-    let headerTitle: String?
-    let footerTitle: String?
+    var items: [TestTableItem]
+    var headerTitle: String?
+    var footerTitle: String?
 }
 
 class TestHeaderFooter: UIView {
