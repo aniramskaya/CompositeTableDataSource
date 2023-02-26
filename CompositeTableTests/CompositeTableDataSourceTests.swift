@@ -62,12 +62,12 @@ final class CompositeTableDataSourceTests: XCTestCase {
         sut.setSectionProviders([provider])
         RunLoop.main.run(until: Date() + 0.5)
 
-        expectSection(atIndex: 0, in: tableView, matches: section)
+        expectSection(atIndex: 0, in: tableView, toMatch: section)
     }
 
     // MARK: - Private
     
-    private func expectSection(atIndex index: Int, in tableView: UITableView, matches section: TestSection, file: StaticString = #filePath, line: UInt = #line) {
+    private func expectSection(atIndex index: Int, in tableView: UITableView, toMatch section: TestSection, file: StaticString = #filePath, line: UInt = #line) {
         XCTAssertEqual(tableView.dataSource?.tableView(tableView, numberOfRowsInSection: index), section.items.count, "Section row count mismatch", file: file, line: line)
         for cellIndex in 0..<section.items.count {
             let cell = tableView.dataSource?.tableView(tableView, cellForRowAt: IndexPath(row: cellIndex, section: index))
