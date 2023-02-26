@@ -73,6 +73,34 @@ final class CompositeTableDataSourceTests: XCTestCase {
             expectSection(atIndex: index, in: tableView, toMatch: section)
         }
     }
+    
+    func test_dataSource_replacesSectionOnProviderReplacement() throws {
+        let (tableView, sut) = makeSUT()
+        let numberOfSections = 3
+        var sections = (0..<numberOfSections).map { _ in
+            makeTestSection(rowCount: 3, headerTitle: uniqueString(), footerTitle: uniqueString())
+            
+        }
+        var providers = sections.map { makeProvider($0) }
+        sut.setSectionProviders(providers)
+        RunLoop.main.run(until: Date() + 0.5)
+
+        sections.enumerated().forEach { index, section in
+            expectSection(atIndex: index, in: tableView, toMatch: section)
+        }
+        
+        sections[1] = makeTestSection(rowCount: 3, headerTitle: uniqueString(), footerTitle: uniqueString())
+        providers[1] = makeProvider(sections[1])
+
+        sut.setSectionProviders(providers)
+        RunLoop.main.run(until: Date() + 0.5)
+
+        sections.enumerated().forEach { index, section in
+            expectSection(atIndex: index, in: tableView, toMatch: section)
+        }
+    }
+    
+    
     // MARK: - Private
     
     private func makeProvider(_ section: TestSection) -> TestSectionProvider {
@@ -93,16 +121,16 @@ final class CompositeTableDataSourceTests: XCTestCase {
             let cell = tableView.dataSource?.tableView(tableView, cellForRowAt: IndexPath(row: cellIndex, section: index))
             guard let testCell = cell as? TestCell
             else {
-                XCTFail("Expected cell to be TestCell found \(type(of: cell)) at index \(cellIndex)", file: file, line: line)
+                XCTFail("Expected cell to be TestCell found \(type(of: cell)) at index \(cellIndex) in section \(index)", file: file, line: line)
                 return
             }
-            XCTAssertEqual(testCell.title, section.items[cellIndex].title, "Expected row \(section.items[cellIndex].title) found \(testCell.title ?? "nil") at index \(cellIndex)", file: file, line: line)
+            XCTAssertEqual(testCell.title, section.items[cellIndex].title, "Expected row \(section.items[cellIndex].title) found \(testCell.title ?? "nil") at index \(cellIndex) in section \(index)", file: file, line: line)
         }
         
         let headerTitle = (tableView.delegate?.tableView?(tableView, viewForHeaderInSection: index) as? TestHeaderFooter)?.title
-        XCTAssertEqual(headerTitle, section.headerTitle, "Section header title", file: file, line: line)
+        XCTAssertEqual(headerTitle, section.headerTitle, "Section header title at \(index)", file: file, line: line)
         let footerTitle = (tableView.delegate?.tableView?(tableView, viewForFooterInSection: index) as? TestHeaderFooter)?.title
-        XCTAssertEqual(footerTitle, section.footerTitle, "Section footer title", file: file, line: line)
+        XCTAssertEqual(footerTitle, section.footerTitle, "Section footer title at \(index)", file: file, line: line)
     }
     
     private func makeTestSection(rowCount: Int = 1, headerTitle: String? = nil, footerTitle: String? = nil ) -> TestSection {
