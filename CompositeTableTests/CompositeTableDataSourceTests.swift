@@ -120,7 +120,22 @@ final class CompositeTableDataSourceTests: XCTestCase {
 
         expectSections(sections, match: tableView)
     }
+    
+    func test_dataSource_ProviderOnNeedsDisplayMultipleCallsDoesNotLeadToMultipleTableReloads() throws {
+        let (tableView, sut) = makeSUT()
+        let section = makeTestSection(rowCount: 3, headerTitle: uniqueString(), footerTitle: uniqueString())
 
+        let provider = makeProvider(section)
+        sut.setSectionProviders([provider])
+        waitForAnimations()
+
+        let tableUpdateCallCount = tableView.reloadDataCallCount + tableView.performBatchUpdatesCallCount
+        provider.onNeedsDisplay?()
+        provider.onNeedsDisplay?()
+        waitForAnimations()
+        
+        XCTAssertEqual(tableView.reloadDataCallCount + tableView.performBatchUpdatesCallCount, tableUpdateCallCount + 1)
+    }
     
     // MARK: - Private
     
@@ -213,8 +228,8 @@ final class CompositeTableDataSourceTests: XCTestCase {
         )
     }
     
-    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (UITableView, CompositeTableDataSource) {
-        let tableView = UITableView()
+    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (TestTableView, CompositeTableDataSource) {
+        let tableView = TestTableView()
         let sut = CompositeTableDataSource(tableView: tableView)
         addTeardownBlock { [weak sut] in
             RunLoop.main.run(until: Date() + 0.5)
@@ -225,6 +240,20 @@ final class CompositeTableDataSourceTests: XCTestCase {
     
     private func uniqueString() -> String {
         UUID().uuidString
+    }
+}
+
+class TestTableView: UITableView {
+    var reloadDataCallCount = 0
+    override func reloadData() {
+        reloadDataCallCount += 1
+        super.reloadData()
+    }
+
+    var performBatchUpdatesCallCount = 0
+    override func performBatchUpdates(_ updates: (() -> Void)?, completion: ((Bool) -> Void)? = nil) {
+        performBatchUpdatesCallCount += 1
+        super.performBatchUpdates(updates, completion: completion)
     }
 }
 
