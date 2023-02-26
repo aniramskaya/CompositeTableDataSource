@@ -119,13 +119,21 @@ public class CompositeTableDataSource: NSObject {
         }
         
         
-        tableView.performBatchUpdates {
-            snapshot = new
-            tableView.deleteRows(at: rowsToDelete, with: animation)
-            tableView.deleteSections(sectionsToDelete, with: animation)
-            tableView.insertSections(sectionsToInsert, with: animation)
-            tableView.insertRows(at: rowsToInsert, with: animation)
-        }
+        tableView.performBatchUpdates(
+            {
+                snapshot = new
+                tableView.deleteRows(at: rowsToDelete, with: animation)
+                tableView.deleteSections(sectionsToDelete, with: animation)
+                tableView.insertSections(sectionsToInsert, with: animation)
+                tableView.insertRows(at: rowsToInsert, with: animation)
+            }) { _ in
+                guard let visibleRows = self.tableView.indexPathsForVisibleRows else { return }
+                if #available(iOS 15.0, *) {
+                    self.tableView.reconfigureRows(at: visibleRows)
+                } else {
+                    self.tableView.reloadRows(at: visibleRows, with: .none)
+                }
+            }
     }
     
     private func makeSnapshot() -> [TableSectionData] {

@@ -137,8 +137,49 @@ final class CompositeTableDataSourceTests: XCTestCase {
         XCTAssertEqual(tableView.reloadDataCallCount + tableView.performBatchUpdatesCallCount, tableUpdateCallCount + 1)
     }
     
-    // MARK: - Private
+    func test_dataSource_ReconfiguresVisibleChangedCellsWhichHasNotBeenReloaded() throws {
+        let vc = TestViewController()
+        let tableView = vc.tableView!
+        let sut = CompositeTableDataSource(tableView: tableView)
+        addTeardownBlock { [weak sut] in
+            RunLoop.main.run(until: Date() + 0.5)
+            XCTAssertNil(sut)
+        }
+        var section = makeTestSection(rowCount: 3, headerTitle: uniqueString(), footerTitle: uniqueString())
+
+        
+        guard let sceneDelegate = (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate),
+              let window = sceneDelegate.window else {
+            XCTFail("Failed to locate window")
+            return
+        }
+        window.rootViewController?.present(vc, animated: false)
+        let provider = makeProvider(section)
+        sut.setSectionProviders([provider])
+        waitForUIUpdates()
+
+        XCTAssertEqual(vc.cellTitleAt(indexPath: IndexPath(row: 0, section: 0)), section.items[0].title)
+        XCTAssertEqual(vc.cellTitleAt(indexPath: IndexPath(row: 1, section: 0)), section.items[1].title)
+        XCTAssertEqual(vc.cellTitleAt(indexPath: IndexPath(row: 2, section: 0)), section.items[2].title)
+
+        section.items[0].title = "10"
+        section.items[1].title = "20"
+        section.items[2].title = "30"
+        updateProvider(provider, with: section)
+        waitForUIUpdates()
+        
+        XCTAssertEqual(vc.cellTitleAt(indexPath: IndexPath(row: 0, section: 0)), section.items[0].title)
+        XCTAssertEqual(vc.cellTitleAt(indexPath: IndexPath(row: 1, section: 0)), section.items[1].title)
+        XCTAssertEqual(vc.cellTitleAt(indexPath: IndexPath(row: 2, section: 0)), section.items[2].title)
+        vc.dismiss(animated: false)
+    }
     
+    // MARK: - Private
+
+    private func waitForUIUpdates() {
+        RunLoop.main.run(until: Date() + 1)
+    }
+
     private func waitForTableChanges() {
         RunLoop.main.run(until: Date() + 0.01)
     }
@@ -259,6 +300,10 @@ class TestTableView: UITableView {
 
 class TestViewController: UITableViewController {
     var dataSource: CompositeTableDataSource?
+    
+    func cellTitleAt(indexPath: IndexPath) -> String? {
+        (tableView.cellForRow(at: indexPath) as? TestCell)?.title
+    }
 }
 
 class TestSectionProvider: TableViewSectionProvider {
@@ -299,9 +344,13 @@ class TestSectionProvider: TableViewSectionProvider {
     
     func configure(cell: UITableViewCell, for item: CompositeTable.TableItem, at index: Int) {
         guard let testItem = item as? TestTableItem else { return }
-        var content = cell.defaultContentConfiguration()
-        content.text = testItem.title
-        cell.contentConfiguration = content
+        if #available(iOS 14.0, *) {
+            var content = cell.defaultContentConfiguration()
+            content.text = testItem.title
+            cell.contentConfiguration = content
+        } else {
+            cell.textLabel?.text = testItem.title
+        }
     }
     
     func unregisterCells(for context: CompositeTable.TableViewCellRegistration) {
@@ -311,7 +360,11 @@ class TestSectionProvider: TableViewSectionProvider {
 
 class TestCell: UITableViewCell {
     var title: String? {
-        (contentConfiguration as? UIListContentConfiguration)?.text
+        if #available(iOS 14.0, *) {
+            return (contentConfiguration as? UIListContentConfiguration)?.text
+        } else {
+            return textLabel?.text
+        }
     }
 }
 
@@ -330,6 +383,27 @@ struct TestSection {
 
 class TestHeaderFooter: UIView {
     var titleLabel = UILabel()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        attachTitleLabel()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        attachTitleLabel()
+    }
+    
+    private func attachTitleLabel() {
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(titleLabel)
+        NSLayoutConstraint.activate([
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+            titleLabel.topAnchor.constraint(equalTo: topAnchor),
+            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+    }
 }
 
 extension TestHeaderFooter {
