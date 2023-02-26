@@ -60,59 +60,42 @@ final class CompositeTableDataSourceTests: XCTestCase {
 
     func test_dataSource_rendersAllSectionsOnProviderListAttachment() throws {
         let (tableView, sut) = makeSUT()
-        let numberOfSections = 3
-        let sections = (0..<numberOfSections).map { _ in
-            makeTestSection(rowCount: 3, headerTitle: uniqueString(), footerTitle: uniqueString())
-            
-        }
-        let providers = sections.map { makeProvider($0) }
+        let sections = makeTestSections(sectionCount: 3)
+        let providers = makeProviders(sections)
+        
         sut.setSectionProviders(providers)
         RunLoop.main.run(until: Date() + 0.5)
 
-        sections.enumerated().forEach { index, section in
-            expectSection(atIndex: index, in: tableView, toMatch: section)
-        }
+        expectSections(sections, match: tableView)
     }
     
     func test_dataSource_replacesSectionOnProviderReplacement() throws {
         let (tableView, sut) = makeSUT()
-        let numberOfSections = 3
-        var sections = (0..<numberOfSections).map { _ in
-            makeTestSection(rowCount: 3, headerTitle: uniqueString(), footerTitle: uniqueString())
-            
-        }
-        var providers = sections.map { makeProvider($0) }
+
+        var sections = makeTestSections(sectionCount: 3)
+        var providers = makeProviders(sections)
+        
         sut.setSectionProviders(providers)
         RunLoop.main.run(until: Date() + 0.5)
 
-        sections.enumerated().forEach { index, section in
-            expectSection(atIndex: index, in: tableView, toMatch: section)
-        }
-        
+        expectSections(sections, match: tableView)
+
         sections[1] = makeTestSection(rowCount: 3, headerTitle: uniqueString(), footerTitle: uniqueString())
         providers[1] = makeProvider(sections[1])
 
         sut.setSectionProviders(providers)
         RunLoop.main.run(until: Date() + 0.5)
 
-        sections.enumerated().forEach { index, section in
-            expectSection(atIndex: index, in: tableView, toMatch: section)
-        }
+        expectSections(sections, match: tableView)
     }
     
     
     // MARK: - Private
     
-    private func makeProvider(_ section: TestSection) -> TestSectionProvider {
-        let provider = TestSectionProvider(id: section.id)
-        let headerView = TestHeaderFooter()
-        headerView.titleLabel.text = section.headerTitle
-        let footerView = TestHeaderFooter()
-        footerView.titleLabel.text = section.footerTitle
-        provider.cellItems = section.items
-        provider.headerView = headerView
-        provider.footerView = footerView
-        return provider
+    private func expectSections(_ sections: [TestSection], match tableView: UITableView, file: StaticString = #filePath, line: UInt = #line) {
+        sections.enumerated().forEach { index, section in
+            expectSection(atIndex: index, in: tableView, toMatch: section, file: file, line: line)
+        }
     }
     
     private func expectSection(atIndex index: Int, in tableView: UITableView, toMatch section: TestSection, file: StaticString = #filePath, line: UInt = #line) {
@@ -131,6 +114,28 @@ final class CompositeTableDataSourceTests: XCTestCase {
         XCTAssertEqual(headerTitle, section.headerTitle, "Section header title at \(index)", file: file, line: line)
         let footerTitle = (tableView.delegate?.tableView?(tableView, viewForFooterInSection: index) as? TestHeaderFooter)?.title
         XCTAssertEqual(footerTitle, section.footerTitle, "Section footer title at \(index)", file: file, line: line)
+    }
+    
+    private func makeProviders(_ sections: [TestSection]) -> [TestSectionProvider] {
+        sections.map { makeProvider($0) }
+    }
+    
+    private func makeProvider(_ section: TestSection) -> TestSectionProvider {
+        let provider = TestSectionProvider(id: section.id)
+        let headerView = TestHeaderFooter()
+        headerView.titleLabel.text = section.headerTitle
+        let footerView = TestHeaderFooter()
+        footerView.titleLabel.text = section.footerTitle
+        provider.cellItems = section.items
+        provider.headerView = headerView
+        provider.footerView = footerView
+        return provider
+    }
+    
+    private func makeTestSections(sectionCount: Int, rowCount: Int = 3) -> [TestSection] {
+        (0..<sectionCount).map { _ in
+            makeTestSection(rowCount: rowCount, headerTitle: uniqueString(), footerTitle: uniqueString())
+        }
     }
     
     private func makeTestSection(rowCount: Int = 1, headerTitle: String? = nil, footerTitle: String? = nil ) -> TestSection {
