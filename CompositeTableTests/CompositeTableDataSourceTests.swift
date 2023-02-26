@@ -53,7 +53,7 @@ final class CompositeTableDataSourceTests: XCTestCase {
 
         let provider = makeProvider(section)
         sut.setSectionProviders([provider])
-        RunLoop.main.run(until: Date() + 0.5)
+        waitForAnimations()
 
         expectSection(atIndex: 0, in: tableView, toMatch: section)
     }
@@ -64,7 +64,7 @@ final class CompositeTableDataSourceTests: XCTestCase {
         let providers = makeProviders(sections)
         
         sut.setSectionProviders(providers)
-        RunLoop.main.run(until: Date() + 0.5)
+        waitForAnimations()
 
         expectSections(sections, match: tableView)
     }
@@ -76,7 +76,7 @@ final class CompositeTableDataSourceTests: XCTestCase {
         var providers = makeProviders(sections)
         
         sut.setSectionProviders(providers)
-        RunLoop.main.run(until: Date() + 0.5)
+        waitForAnimations()
 
         expectSections(sections, match: tableView)
 
@@ -84,7 +84,7 @@ final class CompositeTableDataSourceTests: XCTestCase {
         providers[1] = makeProvider(sections[1])
 
         sut.setSectionProviders(providers)
-        RunLoop.main.run(until: Date() + 0.5)
+        waitForAnimations()
 
         expectSections(sections, match: tableView)
     }
@@ -96,7 +96,7 @@ final class CompositeTableDataSourceTests: XCTestCase {
         let providers = makeProviders(sections)
         
         sut.setSectionProviders(providers)
-        RunLoop.main.run(until: Date() + 0.5)
+        waitForAnimations()
 
         expectSections(sections, match: tableView)
 
@@ -116,13 +116,17 @@ final class CompositeTableDataSourceTests: XCTestCase {
         updateProvider(providers[1], with: nil)
         
 
-        RunLoop.main.run(until: Date() + 0.5)
+        waitForAnimations()
 
         expectSections(sections, match: tableView)
     }
 
     
     // MARK: - Private
+    
+    private func waitForAnimations() {
+        RunLoop.main.run(until: Date() + 0.01)
+    }
     
     private func expectSections(_ sections: [TestSection], match tableView: UITableView, file: StaticString = #filePath, line: UInt = #line) {
         sections.enumerated().forEach { index, section in
