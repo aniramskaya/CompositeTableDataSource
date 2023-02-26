@@ -53,7 +53,7 @@ final class CompositeTableDataSourceTests: XCTestCase {
 
         let provider = makeProvider(section)
         sut.setSectionProviders([provider])
-        waitForAnimations()
+        waitForTableChanges()
 
         expectSection(atIndex: 0, in: tableView, toMatch: section)
     }
@@ -64,7 +64,7 @@ final class CompositeTableDataSourceTests: XCTestCase {
         let providers = makeProviders(sections)
         
         sut.setSectionProviders(providers)
-        waitForAnimations()
+        waitForTableChanges()
 
         expectSections(sections, match: tableView)
     }
@@ -76,7 +76,7 @@ final class CompositeTableDataSourceTests: XCTestCase {
         var providers = makeProviders(sections)
         
         sut.setSectionProviders(providers)
-        waitForAnimations()
+        waitForTableChanges()
 
         expectSections(sections, match: tableView)
 
@@ -84,7 +84,7 @@ final class CompositeTableDataSourceTests: XCTestCase {
         providers[1] = makeProvider(sections[1])
 
         sut.setSectionProviders(providers)
-        waitForAnimations()
+        waitForTableChanges()
 
         expectSections(sections, match: tableView)
     }
@@ -96,7 +96,7 @@ final class CompositeTableDataSourceTests: XCTestCase {
         let providers = makeProviders(sections)
         
         sut.setSectionProviders(providers)
-        waitForAnimations()
+        waitForTableChanges()
 
         expectSections(sections, match: tableView)
 
@@ -116,7 +116,7 @@ final class CompositeTableDataSourceTests: XCTestCase {
         updateProvider(providers[1], with: nil)
         
 
-        waitForAnimations()
+        waitForTableChanges()
 
         expectSections(sections, match: tableView)
     }
@@ -127,19 +127,19 @@ final class CompositeTableDataSourceTests: XCTestCase {
 
         let provider = makeProvider(section)
         sut.setSectionProviders([provider])
-        waitForAnimations()
+        waitForTableChanges()
 
         let tableUpdateCallCount = tableView.reloadDataCallCount + tableView.performBatchUpdatesCallCount
         provider.onNeedsDisplay?()
         provider.onNeedsDisplay?()
-        waitForAnimations()
+        waitForTableChanges()
         
         XCTAssertEqual(tableView.reloadDataCallCount + tableView.performBatchUpdatesCallCount, tableUpdateCallCount + 1)
     }
     
     // MARK: - Private
     
-    private func waitForAnimations() {
+    private func waitForTableChanges() {
         RunLoop.main.run(until: Date() + 0.01)
     }
     
