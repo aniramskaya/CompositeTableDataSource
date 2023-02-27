@@ -13,12 +13,12 @@ class CompositeTableVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.dataSource = CompositeTableDataSource(tableView: tableView)
-//        self.dataSource?.setSectionProviders([
-//            RandomNumberSectionProvider(id: "first"),
-//            RandomNumberSectionProvider(id: "second"),
-//            GallerySectionProvider(id: "gallery")
-//        ])
+        self.dataSource = CompositeTableDataSource(tableView: tableView)
+        self.dataSource?.setSectionProviders([
+            RandomNumberSectionProvider(id: "first"),
+            RandomNumberSectionProvider(id: "second"),
+            GallerySectionProvider(id: "gallery")
+        ])
         
         attachNavBarButtons()
         title = "Шоппинг"
