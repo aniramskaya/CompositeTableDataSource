@@ -41,7 +41,7 @@ final class CompositeTableDataSourceTests: XCTestCase {
         let provider2 = TestSectionProvider(id: uniqueString())
         
         sut.setSectionProviders([provider1, provider2])
-        sut.viewWillAppear()
+        sut.reloadIfNeeded()
 
         XCTAssertEqual(provider1.messages, [.registerCells, .reloadIfNeeded])
         XCTAssertEqual(provider2.messages, [.registerCells, .reloadIfNeeded])

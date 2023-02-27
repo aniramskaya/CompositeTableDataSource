@@ -53,7 +53,7 @@ class CompositeTableVC: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        dataSource?.viewWillAppear()
+        dataSource?.reloadIfNeeded()
     }
     
     @objc func refresh() {

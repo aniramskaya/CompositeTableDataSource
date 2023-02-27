@@ -28,7 +28,7 @@ public class CompositeTableDataSource: NSObject {
 
     // MARK: - View lifecycle support
      
-    public func viewWillAppear() {
+    public func reloadIfNeeded() {
         sectionProviders.forEach { $0.reloadIfNeeded() }
     }
     
